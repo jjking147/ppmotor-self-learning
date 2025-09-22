@@ -1,0 +1,31 @@
+#include "stm32f4xx.h"
+#include "delay.h"
+#include "usart.h"
+#include "bll_main.h"
+#include "modbus_slave.h"
+#include "timer.h"
+
+u8 MOTOR_ADDRESS = 0x01;
+u8 JODELL_MOTOR_ADDRESS = 0x09;
+int main(void)
+{
+<<<<<<< HEAD
+	//Hello 我是李殊恒修改给我冲突！！
+=======
+	//Hello 我是李殊恒冲突！
+>>>>>>> f7246d8545bacd81d88fd99ef48846c0d5fa8eec
+	SystemInit();
+	delay_init(168);
+	BLL_Init_All();
+	
+	while (1) 
+	{
+		BLL_Execute_Mission();
+	}
+	//Hello 我是Jennings
+<<<<<<< HEAD
+	//J ccc
+=======
+	//Li ccccc
+>>>>>>> f7246d8545bacd81d88fd99ef48846c0d5fa8eec
+}

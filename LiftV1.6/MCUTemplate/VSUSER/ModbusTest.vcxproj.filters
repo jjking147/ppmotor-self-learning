@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{29a8d892-88c3-4c96-9e72-49aeb9292b0e}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{ca3fbc20-1665-4811-a595-aabc115469f6}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{0c8c75f7-d464-4f96-a7c9-b88888844549}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Source files\USER">
+      <UniqueIdentifier>{af25354b-0b54-4ab0-9e34-ad388e70748e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\CORE">
+      <UniqueIdentifier>{7c6e2d31-4acb-4f54-b77e-70c46af36abe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\FWLIB">
+      <UniqueIdentifier>{7166c394-6196-406e-b513-c8b8d402d2bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\SYSTEM">
+      <UniqueIdentifier>{c9642a38-51ce-4704-92c5-16e5eb63308a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\README">
+      <UniqueIdentifier>{f70ed697-43c3-4d49-bf0d-c1b7ed78e7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Device-specific files">
+      <UniqueIdentifier>{99c9ca39-401b-4b98-a16f-bc3b16e8d2b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\USER">
+      <UniqueIdentifier>{e42ba6b4-d7e1-4247-bb6d-1f1e7aeaaad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\CORE">
+      <UniqueIdentifier>{c86be2f5-5b5e-4385-93c5-e91d7085b7a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\FWLIB">
+      <UniqueIdentifier>{30563ac7-6dad-4798-a7a1-cc40cbaf6806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\SYSTEM">
+      <UniqueIdentifier>{d2012176-a0a3-48d4-aaa4-0f819cea7bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\README">
+      <UniqueIdentifier>{2ff2b3ed-f86e-45ed-b1c9-754cf6dfc376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Device-specific files">
+      <UniqueIdentifier>{5b891540-4938-4cfd-b992-d53a210f6855}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{600e64cf-e1cc-423d-b52a-e9f50b5c09eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Hardware">
+      <UniqueIdentifier>{bec38728-75f8-4d98-b366-6b40af1ea755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Hardware">
+      <UniqueIdentifier>{a88d9b47-d6c0-413e-9e08-6acc99075da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\BLL">
+      <UniqueIdentifier>{cd6a4aef-d977-4998-a1ae-f233af94ed2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BLL">
+      <UniqueIdentifier>{5ac1f7ba-2224-4f15-b855-da23be664240}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\USER\main.c">
+      <Filter>Source files\USER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\USER\stm32f4xx_it.c">
+      <Filter>Source files\USER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\USER\system_stm32f4xx.c">
+      <Filter>Source files\USER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\misc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_adc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_can.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_crc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp_aes.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp_des.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp_tdes.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dac.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dbgmcu.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dcmi.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dma2d.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dma.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_exti.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_flash.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_flash_ramfunc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_fsmc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_gpio.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_hash.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_hash_md5.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_hash_sha1.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_i2c.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_iwdg.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_ltdc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_pwr.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_rcc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_rng.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_rtc.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_sai.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_sdio.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_spi.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_syscfg.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_tim.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_usart.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_wwdg.c">
+      <Filter>Source files\FWLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SYSTEM\delay\delay.c">
+      <Filter>Source files\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SYSTEM\sys\sys.c">
+      <Filter>Source files\SYSTEM</Filter>
+    </ClCompile>
+    <None Include="mcu.props">
+      <Filter>Source files\Device-specific files</Filter>
+    </None>
+    <None Include="..\readme.txt">
+      <Filter>Header files\README</Filter>
+    </None>
+    <ClInclude Include="$(BSP_ROOT)\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h">
+      <Filter>Header files\Device-specific files</Filter>
+    </ClInclude>
+    <None Include="ModbusTest-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="ModbusTest-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="MCU.xml">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <ClCompile Include="..\Hardware\usart1.c">
+      <Filter>Source files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CORE\startup_stm32f40_41xxx.S">
+      <Filter>Source files\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hardware\mytim2.c">
+      <Filter>Source files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\modbus_slave.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\modbus_s_data.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\bll_main.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\bll_adapter.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\bll_backzero.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\bll_motor_common.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\bll_tocase.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLL\bll_eeprom.c">
+      <Filter>Source files\BLL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Hardware\usart1.h">
+      <Filter>Header files\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="RTE\RTE_Components.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\USER\config.h">
+      <Filter>Header files\USER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\USER\common.h">
+      <Filter>Header files\USER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\modbus_slave.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\modbus_s_data.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\misc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_adc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_can.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_crc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_cryp.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dac.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dbgmcu.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dcmi.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dma.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dma2d.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_exti.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_flash.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_flash_ramfunc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_fmc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_fsmc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_gpio.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_hash.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_i2c.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_iwdg.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_ltdc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_pwr.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_rcc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_rng.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_rtc.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_sai.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_sdio.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_spi.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_syscfg.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_tim.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_usart.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_wwdg.h">
+      <Filter>Header files\FWLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\bll_main.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\bll_adapter.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\bll_backzero.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\bll_motor_common.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\bll_tocase.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLL\bll_eeprom.h">
+      <Filter>Header files\BLL</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

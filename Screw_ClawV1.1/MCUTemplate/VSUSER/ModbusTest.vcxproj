@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|VisualGDB">
+      <Configuration>Debug</Configuration>
+      <Platform>VisualGDB</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|VisualGDB">
+      <Configuration>Release</Configuration>
+      <Platform>VisualGDB</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{7B3940B6-4BD2-4C2F-93BD-8C053FD967ED}</ProjectGuid>
+    <BSP_ID>KEIL:Keil/STM32F4xx_DFP</BSP_ID>
+    <BSP_VERSION>2.15.0</BSP_VERSION>
+    <InPlaceBSPSubdir />
+    <RelativeBSPPath />
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
+    <GNUConfigurationType>Debug</GNUConfigurationType>
+    <ToolchainID>com.sysprogs.toolchains.nongnu.armcc</ToolchainID>
+    <ToolchainVersion>5.x//r1</ToolchainVersion>
+    <MCUPropertyListFile>$(ProjectDir)mcu.props</MCUPropertyListFile>
+    <GenerateHexFile>true</GenerateHexFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
+    <ToolchainID>com.sysprogs.toolchains.nongnu.armcc</ToolchainID>
+    <ToolchainVersion>5.x//r1</ToolchainVersion>
+    <MCUPropertyListFile>$(ProjectDir)mcu.props</MCUPropertyListFile>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
+    <ClCompile>
+      <CPPLanguageStandard>
+      </CPPLanguageStandard>
+      <AdditionalIncludeDirectories>..\BLL;..\Hardware;../Hardware;..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\FWLIB\inc;;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG=1;$$com.sysprogs.bspoptions.primary_memory$$_layout;STM32F40_41xxx;USE_STDPERIPH_DRIVER;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>
+      </AdditionalOptions>
+      <CLanguageStandard>C99</CLanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalLinkerInputs>;%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
+      <AdditionalOptions />
+      <LinkerScript />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
+    <ClCompile>
+      <CPPLanguageStandard>
+      </CPPLanguageStandard>
+      <AdditionalIncludeDirectories>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\FWLIB\inc;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG=1;RELEASE=1;$$com.sysprogs.bspoptions.primary_memory$$_layout;STM32F40_41xxx;USE_STDPERIPH_DRIVER;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions />
+      <CLanguageStandard />
+    </ClCompile>
+    <Link>
+      <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
+      <AdditionalOptions />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ItemGroup>
+    <ClCompile Include="..\BLL\bll_adapter.c" />
+    <ClCompile Include="..\BLL\bll_backzero.c" />
+    <ClCompile Include="..\BLL\bll_eeprom.c" />
+    <ClCompile Include="..\BLL\bll_main.c" />
+    <ClCompile Include="..\BLL\bll_motor_common.c" />
+    <ClCompile Include="..\BLL\bll_tocase.c" />
+    <ClCompile Include="..\BLL\modbus_slave.c" />
+    <ClCompile Include="..\BLL\modbus_s_data.c" />
+    <ClCompile Include="..\CORE\startup_stm32f40_41xxx.S" />
+    <ClCompile Include="..\Hardware\mytim2.c" />
+    <ClCompile Include="..\Hardware\usart1.c" />
+    <ClCompile Include="..\USER\main.c" />
+    <ClCompile Include="..\USER\stm32f4xx_it.c" />
+    <ClCompile Include="..\USER\system_stm32f4xx.c" />
+    <ClCompile Include="..\FWLIB\src\misc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_adc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_can.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_crc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp_aes.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp_des.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_cryp_tdes.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dac.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dbgmcu.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dcmi.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dma2d.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_dma.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_exti.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_flash.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_flash_ramfunc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_fsmc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_gpio.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_hash.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_hash_md5.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_hash_sha1.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_i2c.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_iwdg.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_ltdc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_pwr.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_rcc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_rng.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_rtc.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_sai.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_sdio.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_spi.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_syscfg.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_tim.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_usart.c" />
+    <ClCompile Include="..\FWLIB\src\stm32f4xx_wwdg.c" />
+    <ClCompile Include="..\SYSTEM\delay\delay.c" />
+    <ClCompile Include="..\SYSTEM\sys\sys.c" />
+    <ClInclude Include="..\BLL\bll_adapter.h" />
+    <ClInclude Include="..\BLL\bll_backzero.h" />
+    <ClInclude Include="..\BLL\bll_eeprom.h" />
+    <ClInclude Include="..\BLL\bll_main.h" />
+    <ClInclude Include="..\BLL\bll_motor_common.h" />
+    <ClInclude Include="..\BLL\bll_tocase.h" />
+    <ClInclude Include="..\BLL\modbus_slave.h" />
+    <ClInclude Include="..\BLL\modbus_s_data.h" />
+    <ClInclude Include="..\FWLIB\inc\misc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_adc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_can.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_crc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_cryp.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dac.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dbgmcu.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dcmi.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dma.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_dma2d.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_exti.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_flash.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_flash_ramfunc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_fmc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_fsmc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_gpio.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_hash.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_i2c.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_iwdg.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_ltdc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_pwr.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_rcc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_rng.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_rtc.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_sai.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_sdio.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_spi.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_syscfg.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_tim.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_usart.h" />
+    <ClInclude Include="..\FWLIB\inc\stm32f4xx_wwdg.h" />
+    <ClInclude Include="..\Hardware\usart1.h" />
+    <ClInclude Include="..\USER\common.h" />
+    <ClInclude Include="..\USER\config.h" />
+    <ClInclude Include="RTE\RTE_Components.h" />
+    <None Include="mcu.props" />
+    <None Include="..\readme.txt" />
+    <ClInclude Include="$(BSP_ROOT)\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h" />
+    <None Include="ModbusTest-Debug.vgdbsettings" />
+    <None Include="ModbusTest-Release.vgdbsettings" />
+    <None Include="MCU.xml" />
+  </ItemGroup>
+</Project>
