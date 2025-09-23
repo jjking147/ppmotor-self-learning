@@ -51,6 +51,10 @@ static void WaitMotorStop(u16 span,u16 n)
 		{ 
 			throw(Failure_Timeout);
 		} 
+		if(Check_LimitTriggered())
+		{
+			throw(Failure_Limit);
+		}
 		delay_ms(span); 
 		_motor_sate = Check_Status(); 
 	}while((_motor_sate & 0x01) != 0x01); 

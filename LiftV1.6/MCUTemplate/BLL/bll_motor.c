@@ -104,3 +104,7 @@ void Check_Fault(void)
 {
 	Send_Func03_Data(FAULT_REGISTER, 1, 0);
 }
+
+
+
+

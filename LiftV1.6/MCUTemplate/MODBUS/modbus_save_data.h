@@ -61,6 +61,7 @@ typedef enum FailureID_Type
 	Failure_Argument,
 	Failure_OverBound,
 	Failure_EStop = 0x10,
+	Failure_Limit = 0x20,
 	Failure_Unknown = 0xF0
 }FailureID_Type;
 

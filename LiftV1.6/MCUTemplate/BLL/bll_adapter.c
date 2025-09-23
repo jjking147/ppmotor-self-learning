@@ -1,5 +1,8 @@
 #include "bll_adapter.h"
 #include "bll_motor.h"
+#include "config.h"
+#include "gpio.h"
+#include "delay.h"
 
 #include "math.h"
 
@@ -8,6 +11,40 @@
 
 volatile s32 zero_turn_num;
 volatile s32 zero_encoder_num;
+vu8 Limit_Triggered = 0;
+
+u8 Check_LimitTriggered(void)
+{
+#if USE_LIMIT_SENSOR
+	u8 rt = Limit_Triggered;
+	Limit_Triggered = 0;
+	return rt;
+#else
+	return 0;
+#endif
+	
+}
+
+void EStop_INT_HANDLER(u8 updown)
+{
+	if(updown == 1 && XIN(6) == 1)
+	{
+		delay_ms(1);
+		if(updown == 1 && XIN(6) == 1)
+		{
+			Limit_Triggered = 1;
+		}		
+	}
+	else if(updown == 0 && XIN(7) == 1)
+	{
+		delay_ms(1);
+		if(updown == 1 && XIN(6) == 1)
+		{
+			Limit_Triggered = 1;
+		}
+	}
+}
+
 
 int __Unimplemented()
 {

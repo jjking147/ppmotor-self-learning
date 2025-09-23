@@ -114,6 +114,11 @@ void MyDelay(u16 ms)
 			has_zero_flag = 0; \
 			goto label; \
 		} \
+		if(Check_LimitTriggered()) \
+		{ \
+			*err = (Failure_Limit); \
+			goto label; \
+		} \
 		MyDelay(300); \
 		_motor_sate = Check_Status();\
 	}while((_motor_sate & 0x01) != 0x01); \
@@ -128,6 +133,10 @@ static void WaitMotorStop(u16 span,u16 n)
 		{ 
 			throw(Failure_Timeout);
 		} 
+		if(Check_LimitTriggered())
+		{
+			throw(Failure_Limit);
+		}
 		delay_ms(span); 
 		_motor_sate = Check_Status(); 
 	}while((_motor_sate & 0x01) != 0x01); 

@@ -26,5 +26,7 @@
 
 #define DISPATCHER_TIME_SPAN		50 //ms
 
+#define USE_LIMIT_SENSOR			(0)
+
 
 #endif

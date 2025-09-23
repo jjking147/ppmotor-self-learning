@@ -33,6 +33,9 @@ u8 BLL_Motor_AD_AbsoluteMove(s32 distance, s32 acce, s32 dece, s32 speed);
 u8 BLL_Motor_AD_SpeedMode(s32 acce, s32 dece, s32 speed, u8 dir);
 s32 BLL_Motor_AD_Get_Position(void);
 
+void EStop_INT_HANDLER(u8 updown);
+u8 Check_LimitTriggered(void);
+
 __forceinline void BLL_Motor_AD_UpdateZero(void)
 {
 	zero_encoder_num = Get_Encoder_Number();

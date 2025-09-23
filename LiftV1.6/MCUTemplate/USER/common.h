@@ -22,7 +22,7 @@
 #define GET_X_PORT(n)   X##n##_PORT
 #define GET_X_PIN(n)    X##n##_PIN
 
-#define XIN(n)  XINRAW_EXPAND(GET_X_PORT(n),GET_X_PIN(n))
+//#define XIN(n)  XINRAW_EXPAND(GET_X_PORT(n),GET_X_PIN(n))
 #define INITX(n)    INIT_PORT_IN_FLOAT_EXPAND(GET_X_PORT(n),GET_X_PIN(n))
 
 #endif

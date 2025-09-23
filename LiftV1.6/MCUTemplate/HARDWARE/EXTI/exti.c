@@ -235,13 +235,13 @@ void EXTI9_5_IRQHandler(void)
 // 检查并处理EXTI_Line8的中断
 	if(EXTI_GetITStatus(EXTI_Line8)!= RESET)
 	{
-		GPIO_INT_HANDLER(9);
+		EStop_INT_HANDLER(1);
 		EXTI_ClearITPendingBit(EXTI_Line8);
 	}
 // 检查并处理EXTI_Line9的中断
 	if(EXTI_GetITStatus(EXTI_Line9)!= RESET)
 	{
-		GPIO_INT_HANDLER(10);
+		EStop_INT_HANDLER(0);
 		EXTI_ClearITPendingBit(EXTI_Line9);
 	}
 }
