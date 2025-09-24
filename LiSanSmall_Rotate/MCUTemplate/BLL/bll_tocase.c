@@ -52,7 +52,7 @@ static const s32 position_table[] = {0, 1600, 16250, 29000};	//这个是未到值
 
 #define CARD_BUG_OFFSET			(-150)	//负数往零位方向转，正数往格口方向转
 #define FINAL_OFFSET(i)			(final_offsets[0])	//最终偏移（只对3号位起效）
-#define DEFAULT_FINAL_OFFSET	(12)
+#define DEFAULT_FINAL_OFFSET	(12)	//
 
 static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
