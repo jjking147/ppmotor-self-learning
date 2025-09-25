@@ -13,6 +13,7 @@ extern volatile u8 has_zero_flag;
 extern volatile u8 last_target;
 extern volatile vu8 swtich_count;
 
+#define BACK_ZERO_SPEED		30//  //60->30
 void BLL_BackZero_ClearFlag(void)
 {
 	backzero_flag = CSF_Idel;
@@ -41,7 +42,7 @@ CommonStateFlag_Type BLL_BackZero_Execute(ParamShadow_Type params, u8 *err)
 		USART_ClearFlag(MOTOR_USART, USART_FLAG_TC);	
 		
 		//Step1：进行回零
-		BLL_Moter_AD_BackZero(10,60);
+		BLL_Moter_AD_BackZero(10,BACK_ZERO_SPEED);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		Clear_Position();
 		has_zero_flag = 1;

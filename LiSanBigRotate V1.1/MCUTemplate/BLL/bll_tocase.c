@@ -59,7 +59,7 @@ void mydelay(u16 ms)
 }
 
 //快速运动模式速度表，0<Abs(终点-起点)<18，所以第0个元素不起作用
-const int fastmove_speed[19]={0,10,10,40,55,70,90,100,100,110,180,200,200,200,200,200,200,200,200}; //8 130 to 100，9 130 to 110
+const int fastmove_speed[19]={0,10,10,40,55,70,90,100,100,100,100,100,100,100,100,100,100,100,100}; //8 130 to 100，9 130 to 110
 //const int fastmove_speed[19]={0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 	
 #define FIX_DELAY		(2500)	//快速修正完毕后延迟多久开始修正，单位：ms. 1000 to 2500
@@ -104,6 +104,11 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			last_target = 0;
 //			swtich_count = -1;
 		}
+		
+//		
+//		BLL_Motor_AD_AbsoluteMove(100,1,1,10);
+//		goto die;
+		
 		u8 M = params.Param1;
 		s8 fix_dir = 1;
 		u32 fix_max_time = FIX_NORM_MAX_TIME;
@@ -135,7 +140,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			speed_select = abs(speed_select);
 		}
 		last_target = params.Param1;
-		u32 distance = 555 * (params.Param1 - 1) + 360;
+		u32 distance = 830 * (params.Param1 - 1) + 160;
 		fast_move_flag = 1;
 		
 //		My_EXTI_Cmd(1,DISABLE);
