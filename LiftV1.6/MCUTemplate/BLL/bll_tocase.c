@@ -71,13 +71,14 @@ static const s32 Special_Positions[] =
 
 #define BUG_80_OFFSET		(400) //465 to 400
 
+//当参数4发送4或者5时，触发以下的盘点专用偏移
 #define CARD_BUG_OFFSET		(-525)	//正数向上，负数向下
 #define PP_BUG_OFFSET		(-190)	//正数向上，负数向下
 
 #define MOVE_DELAY			(50)	//目前只做了证格口运动时的延时
 
+//当参数4发送10或者11时，触发以下的插入后移动
 #define PP_DOWN				(85)	//证插入后下移距离(正数向下，负数向上) 10 to 25 to 45 to 25 to 60 to 85
-
 #define CARD_DOWN			(70)	//卡插入后下移距离(正数向下，负数向上) 22 to 5 to 20 to 40 to 25 to 70
 
 //==================================================================
@@ -116,6 +117,7 @@ void MyDelay(u16 ms)
 		} \
 		if(Check_LimitTriggered()) \
 		{ \
+			Brake(); \
 			*err = (Failure_Limit); \
 			goto label; \
 		} \
@@ -135,6 +137,7 @@ static void WaitMotorStop(u16 span,u16 n)
 		} 
 		if(Check_LimitTriggered())
 		{
+			Brake();
 			throw(Failure_Limit);
 		}
 		delay_ms(span); 

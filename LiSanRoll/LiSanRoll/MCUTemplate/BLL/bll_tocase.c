@@ -18,6 +18,13 @@ extern u8 MOTOR_ADDRESS;
 
 //extern u8 Master_Receive_Buff[MODBUS_MASTER_BUFF_LEN];
 
+
+#define PP_ROLL_IN_DELAY		(2100)	//证卷入延时
+#define CARD_ROLL_IN_DELAY		(3800)	//卡卷入延时
+#define ROLL_OUT_DELAY			(5000)	//卷出延时
+#define BATCH_IN_DELAY			(3800)	//批量口延时
+
+
 //清除flag状态
 void BLL_Roll_ClearFlag(void)
 {
@@ -52,7 +59,13 @@ void delay_s(u16 s)
 		delay_ms(1000);
 }
 
-u8 WaitRolling(u8 sw,u8 sec,u16 more)
+__forceinline static void delay(u16 ms)
+{
+	delay_s(ms/1000);
+	delay_ms(ms%1000);
+}
+
+u8 WaitRolling(u8 sw,u16 ms)
 {
 	u32 start = ReadTick();
 	while(TickSpan(start) < 20000)
@@ -63,8 +76,7 @@ u8 WaitRolling(u8 sw,u8 sec,u16 more)
 			delay_ms(10);
 			if(Read_Switch(sw))
 			{
-				delay_s(sec);
-				delay_ms(more);
+				delay(ms);
 				Stop();
 				return 0;
 			}
@@ -96,22 +108,22 @@ CommonStateFlag_Type BLL_Roll_Execute(ParamShadow_Type params, u8 *err)
 		switch(params.Param1){
 		case 1:	//卡卷入
 			kind = 1;
-			*err = WaitRolling(1,2,100);
+			*err = WaitRolling(1,PP_ROLL_IN_DELAY);
 			goto die;
 			break;
 		case 2:	//证卷入
 			kind = 2;
-			*err = WaitRolling(2,3,800);
+			*err = WaitRolling(2,CARD_ROLL_IN_DELAY);
 			goto die;
 			break;
 		case 3:	//出口
 			kind = 3;
-			delay_s(5);
+			delay(ROLL_OUT_DELAY);
 			Stop();
 			break;
 		case 4:	//批量
 			kind = 4;
-			*err = WaitRolling(3,3,800);
+			*err = WaitRolling(3,BATCH_IN_DELAY);
 			goto die;
 			break;
 		default:

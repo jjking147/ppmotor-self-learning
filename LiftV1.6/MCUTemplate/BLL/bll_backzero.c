@@ -53,6 +53,7 @@ static void WaitMotorStop(u16 span,u16 n)
 		} 
 		if(Check_LimitTriggered())
 		{
+			Brake();
 			throw(Failure_Limit);
 		}
 		delay_ms(span); 
