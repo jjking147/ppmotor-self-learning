@@ -47,7 +47,7 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 165, 1572, 2810};	//这个是立三电机
+static const s32 position_table[] = {0, 205, 1612, 2850};	//这个是未到值
 
 
 
