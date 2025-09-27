@@ -56,7 +56,7 @@ void Set_Speed(s32 Speed);
 void Set_Relative_Position(s32 Pluse);
 void Set_Absolute_Position(s32 Position);
 void Clear_Position(void);
-u8 Check_Status(void);
+u16 Check_Status(void);
 s32 Get_Position(void);
 
 //¼Ð×¦º¯Êý

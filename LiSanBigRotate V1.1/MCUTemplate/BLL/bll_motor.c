@@ -70,14 +70,14 @@ void Clear_Position(void)
 	Send_Func10_Data(SET_POSITION_REGISTER, 0);
 }
 
-static u8 wait_flag = 0, code = 0;
+static u16 wait_flag = 0, code = 0;
 static void Check_Status_Cb(ModBusFailCode_Type err,u8* data,u16 len)
 {
 	wait_flag = 0;
-	code = data[3];
+	code = (data[3]<<8) | data[4];
 }
 
-u8 Check_Status(void)
+u16 Check_Status(void)
 {
 	wait_flag = 1;
 	Send_Func03_Data(STATUS_REGISTER, 1, Check_Status_Cb);

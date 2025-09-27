@@ -35,7 +35,7 @@ static void Clear_Manual_Flags(void)
 	slow_move_flag = 0;
 }
 
-#define WAIT_MOTOR_STOP(span,n,label)	{ \
+#define WAIT_MOTOR_STOP(span,n,label)	{delay_ms(400); \
 	u16 _motor_sate = 0,_retry = 0; \
 	do \
 	{ \
@@ -46,7 +46,7 @@ static void Clear_Manual_Flags(void)
 		} \
 		delay_ms(span); \
 		_motor_sate = Check_Status(); \
-	}while((_motor_sate & 0x03) == 0x03);; \
+	}while((_motor_sate & 0x03) != 0);; \
 }
 
 void mydelay(u16 ms)
@@ -87,14 +87,13 @@ static s32 final_offsets[19] = {0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,1
 
 	
 
-
 CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 {
 	u32 start;
 	if(tocase_flag == CSF_Idel)
 	{
 		//不同格口的速度以数组形式赋予
-		
+
 		
 		//Step0：初始化各种标志位等
 		tocase_flag = CSF_Working;
@@ -105,7 +104,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		if(has_zero_flag == 0)
 		{
 			BLL_Moter_AD_BackZero(10,60);
-			WAIT_MOTOR_STOP(100,3000,die);	//100ms查一次，查200次不行就超时
+			WAIT_MOTOR_STOP(200,3000,die);	//100ms查一次，查200次不行就超时
 			mydelay(3000);
 			Clear_Position();
 			has_zero_flag = 1;
@@ -155,7 +154,10 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		BLL_Motor_AD_AbsoluteMove(distance,1,1,fastmove_speed[speed_select]);
 //		delay_ms(400);
 //		My_EXTI_Cmd(1,ENABLE);
-		WAIT_MOTOR_STOP(100,30000,die);	//100ms查一次，查200次不行就超时
+		WAIT_MOTOR_STOP(200,30000,die);	//100ms查一次，查200次不行就超时
+		
+		
+		
 		fast_move_flag = 0;
 		
 	  //goto die;

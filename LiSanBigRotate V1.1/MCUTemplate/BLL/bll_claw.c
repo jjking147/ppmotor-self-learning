@@ -30,7 +30,7 @@ void BLL_Claw_ClearFlag(void)
 	tocase_flag = CSF_Idel;
 }
 
-#define WAIT_MOTOR_STOP(span,n,label)	{ \
+#define WAIT_MOTOR_STOP(span,n,label)	{ delay_ms(400);\
 	u16 _motor_sate = 0,_retry = 0; \
 	do \
 	{ \

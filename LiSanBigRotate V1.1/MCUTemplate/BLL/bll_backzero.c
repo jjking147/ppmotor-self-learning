@@ -19,7 +19,7 @@ void BLL_BackZero_ClearFlag(void)
 	backzero_flag = CSF_Idel;
 }
 
-#define WAIT_MOTOR_STOP(span,n,label)	{ \
+#define WAIT_MOTOR_STOP(span,n,label)	{ delay_ms(400);\
 	vu16 _motor_sate = 0,_retry = 0; \
 	do \
 	{ \
@@ -30,7 +30,7 @@ void BLL_BackZero_ClearFlag(void)
 		} \
 		delay_ms(span); \
 		_motor_sate = Check_Status();\
-	}while((_motor_sate & 0x03) == 0x03); \
+	}while((_motor_sate & 0x03) != 0); \
 }
 
 CommonStateFlag_Type BLL_BackZero_Execute(ParamShadow_Type params, u8 *err)
@@ -43,8 +43,8 @@ CommonStateFlag_Type BLL_BackZero_Execute(ParamShadow_Type params, u8 *err)
 		
 		//Step1：进行回零
 		BLL_Moter_AD_BackZero(10,BACK_ZERO_SPEED);
-		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
-		delay_ms(1000);delay_ms(1000);delay_ms(1000);
+		WAIT_MOTOR_STOP(200,200,die);	//100ms查一次，查200次不行就超时
+		delay_ms(1000);
 		Clear_Position();
 		has_zero_flag = 1;
 		last_target = 0;

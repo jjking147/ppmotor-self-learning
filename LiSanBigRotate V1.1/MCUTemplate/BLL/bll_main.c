@@ -154,8 +154,8 @@ void BLL_Motor_Mission(void)
 		clear_flag_fun = BLL_ToCase_ClearFlag;
 		break;
 	case Mission_Claw:
-		flag = BLL_Claw_Execute(ParamShadow, &err);
-		clear_flag_fun = BLL_Claw_ClearFlag;
+		//flag = BLL_Claw_Execute(ParamShadow, &err);
+		//clear_flag_fun = BLL_Claw_ClearFlag;
 		break;
 	case Mission_ForwardData:
 		//转发数据任务

@@ -42,32 +42,32 @@ static BitAction ELECTRIAL_LEVEL = Bit_SET;
 static const s32 Special_Positions[] = 
 {
 	0,
-	-23200,//0xFF(255)、出证口
-	-35500,//0xFE(254)、入证口
-	-39050,//0xFD(253)、入卡口
+	-23650,//0xFF(255)、出证口
+	-35550,//0xFE(254)、入证口
+	-38900,//0xFD(253)、入卡口
 	0   //0xFC(252)、批量口
 };
 
 #define SLOW_ACCE			(5000)
 #define SLOW_DECE			(5000)
-#define SLOW_SPEED		 	(3000)
+#define SLOW_SPEED		 	(2000)
 
 #define FAST_ACCE			(80000)
 #define FAST_DECE			(50000)
-#define FAST_SPEED		 	(20000)
+#define FAST_SPEED		 	(15000)
 
-#define FINAL_OFFSET		(-25)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
-#define FINAL_OFFSET_CARD	(20)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
+#define FINAL_OFFSET		(0)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
+#define FINAL_OFFSET_CARD	(0)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
 
 #define MAX_SLOW_TIME		(500)
 
 #define K_BOOK				(930)
-#define G_BOOK				(400)
-#define B_BOOK				(1005)
+#define G_BOOK				(440)
+#define B_BOOK				(780)
 
 #define K_CARD				(465)
 #define G_CARD				(500)
-#define B_CARD				(1390)
+#define B_CARD				(1165)
 
 #define BUG_80_OFFSET		(400) //465 to 400
 
@@ -234,7 +234,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		if(has_zero_flag == 0)
 		{
 			BackZero();
-			MyDelay(100);
+			MyDelay(1000);
 		}
 		
 		if(params.Param4 == 10 || params.Param4 == 11)
@@ -284,7 +284,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			
 			MyDelay(MOVE_DELAY);
 			
-//			goto die; //暂时不用修正
+			//goto die; //暂时不用修正
 			
 			//Step3：判断位移模式结果，决定如何修正
 			if((Read_Switch(1) == SET) && (Read_Switch(2) == SET))
@@ -393,7 +393,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			{
 				try
 				{
-					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-200,MAX_SLOW_TIME,1)) //如果上修成功
+					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-200,MAX_SLOW_TIME,0)) //如果上修成功
 					{
 						//卡就不进行最终修正了
 						if(bug80)	//80bug
@@ -411,7 +411,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 						WaitMotorStop(200,2000);
 						goto die;
 					}
-					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,400,MAX_SLOW_TIME,1)) //如果下修成功
+					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,400,MAX_SLOW_TIME,0)) //如果下修成功
 					{
 						//卡就不进行最终修正了
 						if(bug80)	//80bug
