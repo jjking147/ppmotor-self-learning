@@ -7,7 +7,7 @@
 
 
 u8 JODELL_MOTOR_ADDRESS = 0x09;
-//u8 MOTOR_ADDRESS = 0x02;
+//u8 MOTOR_ADDRESS = 0x01;
 
 u8 IsJumpIAP = 0;
 extern void BLL_Update(void);

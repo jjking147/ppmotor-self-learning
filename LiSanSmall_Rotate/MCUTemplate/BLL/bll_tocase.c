@@ -47,7 +47,7 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 1600, 16250, 29000};	//这个是未到值
+static const s32 position_table[] = {0, 205, 1612, 2850};	//这个是未到值
 //static const s32 position_table[] = {0, 220, 1685, 2960};	//这个是正确位置
 
 #define CARD_BUG_OFFSET			(-150)	//负数往零位方向转，正数往格口方向转

@@ -67,7 +67,7 @@ const int fastmove_speed[19]={0,10,10,40,55,70,90,100,100,100,100,100,100,100,10
 #define FIX_SPEED			(2)		//慢速修正速度 1 to 2
 
 #define FINAL_DELAY			(1800)	//慢速修正结束后延迟多久开始最终偏移
-#define FINAL_OFFSET_FIXED		(0)
+#define FINAL_OFFSET_FIXED		(1)
 #define FINAL_SPEED			(10)		//最终固定偏移的运动速度
 
 #define FIX_NORM_MAX_TIME		(5000)	//普通修正最大时间
@@ -80,8 +80,8 @@ const int fastmove_speed[19]={0,10,10,40,55,70,90,100,100,100,100,100,100,100,10
 #define FINAL_OFFSET(i)		(final_offsets[i])	//慢速修正完毕后的最终固定偏移，正数为远离0点方向. 20 to 17
 #endif
 	
-#define ROTATE_K		(830
-#define ROTATE_B		(160)
+#define ROTATE_K		(830)
+#define ROTATE_B		(129)
 	
 static s32 final_offsets[19] = {0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
 
@@ -148,7 +148,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			speed_select = abs(speed_select);
 		}
 		last_target = params.Param1;
-		u32 distance = ROTATE_K * (params.Param1 - 1) + ROTATE_B;
+		vu32 distance = ROTATE_K * (params.Param1 - 1) + ROTATE_B;
 		fast_move_flag = 1;
 		
 //		My_EXTI_Cmd(1,DISABLE);
