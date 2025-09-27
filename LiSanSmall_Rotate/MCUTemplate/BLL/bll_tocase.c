@@ -47,12 +47,16 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 1600, 16250, 29000};	//这个是未到值
+static const s32 position_table[] = {0, 165, 1572, 2810};	//这个是立三电机
+
+
+
+//static const s32 position_table[] = {0, 1600, 16250, 29000};	//这个是精控电机
 //static const s32 position_table[] = {0, 220, 1685, 2960};	//这个是正确位置
 
-#define CARD_BUG_OFFSET			(-150)	//负数往零位方向转，正数往格口方向转
+#define CARD_BUG_OFFSET			(0)	//负数往零位方向转，正数往格口方向转
 #define FINAL_OFFSET(i)			(final_offsets[0])	//最终偏移（只对3号位起效）
-#define DEFAULT_FINAL_OFFSET	(12)	//
+#define DEFAULT_FINAL_OFFSET	(0)	//
 
 static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
@@ -74,7 +78,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
-			BLL_Moter_AD_BackZero(10,300);
+			BLL_Moter_AD_BackZero(10,30);
 //			BLL_Moter_AD_BackZero(RUN_REG.ZeroAcc,RUN_REG.ZeroSpeed);
 			WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 			delay_ms(100);
@@ -112,7 +116,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			target = 2;
 		}
 		
-		BLL_Motor_AD_AbsoluteMove(position_table[target],20,20,600);
+		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,30);
 //		BLL_Motor_AD_RelativeMove(distance,RUN_REG.MaxAcc,RUN_REG.MaxDec,RUN_REG.MaxSpeed);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		fast_move_flag = 0;

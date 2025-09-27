@@ -9,7 +9,7 @@ REGION_TYPE(0) Reg_4x_0 =
 	.Version = VERSION,
 	.DrvType = DRIVERTYPE,
 	.IsSkipCRC = 0,
-	.Motor1Addr = 2,
+	.Motor1Addr = 1,
 };
 
 REGION_TYPE(1) Reg_4x_1 = 
