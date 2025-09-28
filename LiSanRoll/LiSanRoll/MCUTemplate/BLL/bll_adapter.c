@@ -1,5 +1,6 @@
 #include "bll_adapter.h"
 #include "bll_motor.h"
+#include "math.h"
 
 int __Unimplemented()
 {
@@ -59,9 +60,12 @@ u8 BLL_Motor_AD_SpeedMode(u16 acce, u16 dece, s32 speed)
 	
 	Set_Dece_Time(speed/(dece * 10));
 	
-	Set_Speed(speed * 100);
+	Set_Speed(abs(speed) * 100);
 	
-	Forward_Run();
+	if(speed > 0)
+		Forward_Run();
+	else
+		Reverse_Run();
 
 	return 0;
 }

@@ -13,7 +13,7 @@ extern volatile u8 has_zero_flag;
 extern volatile u8 last_target;
 extern volatile vu8 swtich_count;
 
-#define BACK_ZERO_SPEED		30//  //60->30
+#define BACK_ZERO_SPEED		50//  //60->30
 void BLL_BackZero_ClearFlag(void)
 {
 	backzero_flag = CSF_Idel;

@@ -19,10 +19,10 @@ extern u8 MOTOR_ADDRESS;
 //extern u8 Master_Receive_Buff[MODBUS_MASTER_BUFF_LEN];
 
 
-#define PP_ROLL_IN_DELAY		(2100)	//证卷入延时
-#define CARD_ROLL_IN_DELAY		(3800)	//卡卷入延时
-#define ROLL_OUT_DELAY			(5000)	//卷出延时
-#define BATCH_IN_DELAY			(3800)	//批量口延时
+#define PP_ROLL_IN_DELAY		(4100)	//证卷入延时
+#define CARD_ROLL_IN_DELAY		(2900)	//卡卷入延时
+#define ROLL_OUT_DELAY			(4900)	//卷出延时
+#define BATCH_IN_DELAY			(3900)	//批量口延时
 
 
 //清除flag状态
