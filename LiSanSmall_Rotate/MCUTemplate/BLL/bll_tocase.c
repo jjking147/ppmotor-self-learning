@@ -47,7 +47,7 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 205-25, 1612-25, 2850-85};	//Õâ¸öÊÇÎ´µ½Öµ
+static const s32 position_table[] = {0, 205-25, 1610-25, 2850-85};	//Õâ¸öÊÇÎ´µ½Öµ
 
 
 
@@ -58,7 +58,7 @@ static const s32 position_table[] = {0, 205-25, 1612-25, 2850-85};	//Õâ¸öÊÇÎ´µ½Ö
 #define FINAL_OFFSET(i)			(final_offsets[i])	//×îÖÕÆ«ÒÆ£¨Ö»¶Ô3ºÅÎ»ÆðÐ§£©
 #define DEFAULT_FINAL_OFFSET	(10)	//
 
-static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,-40,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,-10,10,00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 
 
@@ -118,7 +118,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			target = 2;
 		}
 		
-		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,200);
+		BLL_Motor_AD_AbsoluteMove(position_table[target],3,3,50);//Ô­5£¬5£¬200
 //		BLL_Motor_AD_RelativeMove(distance,RUN_REG.MaxAcc,RUN_REG.MaxDec,RUN_REG.MaxSpeed);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms²éÒ»´Î£¬²é200´Î²»ÐÐ¾Í³¬Ê±
 		fast_move_flag = 0;
@@ -155,7 +155,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 //			}
 			swtich_flag = 0;
 			slow_move_flag = 1;
-			BLL_Motor_AD_RelativeMove(200,5,5,20);
+			BLL_Motor_AD_RelativeMove(200,5,5,20);//Ô­5£¬5£¬20
 				
 			start = ReadTick();
 			while(1)
@@ -171,7 +171,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				}	
 			}
 		
-			BLL_Motor_AD_RelativeMove(-400,5,5,20);
+			BLL_Motor_AD_RelativeMove(-400,5,5,20);//Ô­5£¬5£¬20
 				
 			start = ReadTick();	//Õâ¾ä»°Òª¼ÓÉÏ
 			while(1)

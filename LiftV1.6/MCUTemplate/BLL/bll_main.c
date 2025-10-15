@@ -32,8 +32,8 @@ void BLL_Init_All(void)
 	NVIC_Config(4,0);
 	NVIC_Config(5,0);
 #if USE_LIMIT_SENSOR
-	NVIC_Config(6,0);
-	NVIC_Config(7,0);
+	//NVIC_Config(6,0);
+	//NVIC_Config(7,0);
 #endif
 	System_State = SYS_Idel;
 	System_Inited = 1;

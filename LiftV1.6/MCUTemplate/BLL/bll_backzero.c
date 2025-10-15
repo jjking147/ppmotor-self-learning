@@ -47,6 +47,7 @@ static void WaitMotorStop(u16 span,u16 n)
 	u16 _motor_sate = 0,_retry = 0; 
 	do 
 	{ 
+		delay_ms(span); 
 		if(_retry++ >= n) 
 		{ 
 			throw(Failure_Timeout);
@@ -56,7 +57,7 @@ static void WaitMotorStop(u16 span,u16 n)
 			Brake();
 			throw(Failure_Limit);
 		}
-		delay_ms(span); 
+		
 		_motor_sate = Check_Status(); 
 	}while((_motor_sate & 0x01) != 0x01); 
 

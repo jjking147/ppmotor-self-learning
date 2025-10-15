@@ -45,5 +45,14 @@ __forceinline void BLL_Motor_AD_UpdateZero(void)
 #define _2_POW_17_          (1<<17)
 #define CONVERT_POSITION(encoder_num,turn_num) ((int)(1.0 * (((short)(turn_num) * _2_POW_17_) + (encoder_num)) * 1000 / _2_POW_17_))
 
+#define CHECK_LIMIT_STOP(err,lbl)	{\
+if(Check_LimitTriggered()) \
+		{ \
+			Brake(); \
+			*err = (Failure_Limit); \
+			goto lbl; \
+		} }\
+
+
 #endif 
  

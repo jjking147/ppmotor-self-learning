@@ -42,9 +42,9 @@ static BitAction ELECTRIAL_LEVEL = Bit_SET;
 static const s32 Special_Positions[] = 
 {
 	0,
-	-23650,//0xFF(255)、出证口
-	-35550,//0xFE(254)、入证口
-	-38900,//0xFD(253)、入卡口
+	-23650+300,//0xFF(255)、出证口
+	-35550+500,//0xFE(254)、入证口
+	-38900+300,//0xFD(253)、入卡口
 	0   //0xFC(252)、批量口
 };
 
@@ -56,18 +56,18 @@ static const s32 Special_Positions[] =
 #define FAST_DECE			(50000)
 #define FAST_SPEED		 	(15000)
 
-#define FINAL_OFFSET		(0)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
-#define FINAL_OFFSET_CARD	(0)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
+#define FINAL_OFFSET		(20)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
+#define FINAL_OFFSET_CARD	(-40)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
 
 #define MAX_SLOW_TIME		(500)
 
 #define K_BOOK				(930)
 #define G_BOOK				(440)
-#define B_BOOK				(780)
+#define B_BOOK				(780-450)
 
 #define K_CARD				(465)
 #define G_CARD				(500)
-#define B_CARD				(1165)
+#define B_CARD				(1165-450)
 
 #define BUG_80_OFFSET		(400) //465 to 400
 
@@ -109,6 +109,7 @@ void MyDelay(u16 ms)
 	vu16 _motor_sate = 0,_retry = 0; \
 	do \
 	{ \
+		MyDelay(300); \
 		if(_retry++ >= n) \
 		{ \
 			*err = Failure_Timeout; \
@@ -121,7 +122,6 @@ void MyDelay(u16 ms)
 			*err = (Failure_Limit); \
 			goto label; \
 		} \
-		MyDelay(300); \
 		_motor_sate = Check_Status();\
 	}while((_motor_sate & 0x01) != 0x01); \
 }
@@ -131,6 +131,7 @@ static void WaitMotorStop(u16 span,u16 n)
 	u16 _motor_sate = 0,_retry = 0; 
 	do 
 	{ 
+		delay_ms(span); 
 		if(_retry++ >= n) 
 		{ 
 			throw(Failure_Timeout);
@@ -140,7 +141,7 @@ static void WaitMotorStop(u16 span,u16 n)
 			Brake();
 			throw(Failure_Limit);
 		}
-		delay_ms(span); 
+		
 		_motor_sate = Check_Status(); 
 	}while((_motor_sate & 0x01) != 0x01); 
 
@@ -157,7 +158,7 @@ __forceinline u8 Check_Switch( u8 kind,  u8 special_case)
 		}
 		else
 		{
-			return (XIN(2) == SET && (XIN(1) == SET));
+			return (XIN(1) == SET && (XIN(2) == SET));
 		}
 	}
 	else
@@ -355,7 +356,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				goto die;
 			}
 			
-			MyDelay(500);
+			MyDelay(MOVE_DELAY);
 			
 //			goto die;
 			
@@ -393,7 +394,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			{
 				try
 				{
-					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-200,MAX_SLOW_TIME,0)) //如果上修成功
+					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-300,MAX_SLOW_TIME,1)) //如果上修成功
 					{
 						//卡就不进行最终修正了
 						if(bug80)	//80bug
@@ -411,7 +412,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 						WaitMotorStop(200,2000);
 						goto die;
 					}
-					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,400,MAX_SLOW_TIME,0)) //如果下修成功
+					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,600,MAX_SLOW_TIME,1)) //如果下修成功
 					{
 						//卡就不进行最终修正了
 						if(bug80)	//80bug
@@ -441,7 +442,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				}
 			}
 		}
-		if((params.Param1 & 0xf0) == 0xf0)	
+		if((params.Param1 & 0xf0) == 0xf0)	//特殊位置
 		{
 			special_case = 0-(u8)params.Param1;
 			
@@ -493,6 +494,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					if(TickSpan(starttime) >= 300)
 					{
 						starttime = ReadTick();
+						CHECK_LIMIT_STOP(err,die);
 						_motor_sate = Check_Status();
 						if(_retry++ >= 4000) 
 						{ 
@@ -598,6 +600,15 @@ void SWTICH1_INT_HANDLER(void)
 				if(kind == 0)
 				{
 					if((Read_Switch(1) == SET) && (Read_Switch(2) == SET))
+					{
+						swtich_flag = 1;
+						switch_trigger_time = ReadTick();
+						slow_move_flag = 0;
+					}
+				}
+				if(kind == 1)
+				{
+					if((Read_Switch(2) == SET) && (Read_Switch(1) == SET))
 					{
 						swtich_flag = 1;
 						switch_trigger_time = ReadTick();

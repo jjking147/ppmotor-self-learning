@@ -15,19 +15,26 @@ vu8 Limit_Triggered = 0;
 
 u8 Check_LimitTriggered(void)
 {
-#if USE_LIMIT_SENSOR
-	u8 rt = Limit_Triggered;
-	Limit_Triggered = 0;
-	return rt;
-#else
-	return 0;
-#endif
-	
+//#if USE_LIMIT_SENSOR
+//	u8 rt = Limit_Triggered;
+//	Limit_Triggered = 0;
+//	return rt;
+//#else
+//	return 0;
+//#endif
+	if(XIN(6) || XIN(7))
+	{
+		delay_ms(3);
+		return (XIN(6) || XIN(7));
+	}
+	else
+		return 0;
 }
+
 
 void EStop_INT_HANDLER(u8 updown)
 {
-	if(updown == 1 && XIN(6) == 1)
+	if(1 == 1 && XIN(6) == 1)
 	{
 		delay_ms(1);
 		if(updown == 1 && XIN(6) == 1)
@@ -35,7 +42,7 @@ void EStop_INT_HANDLER(u8 updown)
 			Limit_Triggered = 1;
 		}		
 	}
-	else if(updown == 0 && XIN(7) == 1)
+	else if(0 == 0 && XIN(7) == 1)
 	{
 		delay_ms(1);
 		if(updown == 1 && XIN(6) == 1)

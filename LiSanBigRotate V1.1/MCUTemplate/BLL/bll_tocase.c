@@ -59,7 +59,7 @@ void mydelay(u16 ms)
 }
 
 //快速运动模式速度表，0<Abs(终点-起点)<18，所以第0个元素不起作用
-const int fastmove_speed[19]={0,40,60,60,70,80,90,100,100,100,100,100,100,100,100,100,100,100,100}; //8 130 to 100，9 130 to 110
+const int fastmove_speed[19]={40,40,60,60,70,80,80,80,80,80,80,80,80,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
 //const int fastmove_speed[19]={0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 	
 #define FIX_DELAY			(2500)	//快速修正完毕后延迟多久开始修正，单位：ms. 1000 to 2500
@@ -67,12 +67,12 @@ const int fastmove_speed[19]={0,40,60,60,70,80,90,100,100,100,100,100,100,100,10
 #define FIX_SPEED			(2)		//慢速修正速度 1 to 2
 
 #define FINAL_DELAY			(1800)	//慢速修正结束后延迟多久开始最终偏移
-#define FINAL_OFFSET_FIXED		(1)
+#define FINAL_OFFSET_FIXED		(0)
 #define FINAL_SPEED			(10)		//最终固定偏移的运动速度
 
 #define FIX_NORM_MAX_TIME		(5000)	//普通修正最大时间
 #define FIX_SELF_MAX_TIEM		(3000)	//自修正最大时间
-#define FIX_SELF_FIX_DIR		(-1)	//-1代表优先反向，1代表优先正向，不要输入1和-1以外的数值
+#define FIX_SELF_FIX_DIR		(1)	//-1代表优先反向，1代表优先正向，不要输入1和-1以外的数值
 
 #if FINAL_OFFSET_FIXED	
 #define FINAL_OFFSET(i)		(0)
@@ -83,7 +83,7 @@ const int fastmove_speed[19]={0,40,60,60,70,80,90,100,100,100,100,100,100,100,10
 #define ROTATE_K		(830)
 #define ROTATE_B		(129)
 	
-static s32 final_offsets[19] = {0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
+static s32 final_offsets[19] = {0,10,15,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
 
 	
 
@@ -103,7 +103,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
-			BLL_Moter_AD_BackZero(10,60);
+			BLL_Moter_AD_BackZero(10,80);
 			WAIT_MOTOR_STOP(200,3000,die);	//100ms查一次，查200次不行就超时
 			mydelay(3000);
 			Clear_Position();
@@ -135,9 +135,9 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		}
 		else
 		{
-			fix_dir = FIX_SELF_FIX_DIR;
-			fix_max_time = FIX_SELF_MAX_TIEM;
-			goto FIX_GO;
+			//fix_dir = (FINAL_OFFSET(M)>0?1:-1);
+			//fix_max_time = FIX_SELF_MAX_TIEM;
+			//goto FIX_GO;
 		}
 
 		speed_select = params.Param1 - last_target;
