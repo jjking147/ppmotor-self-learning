@@ -47,7 +47,7 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 205-25, 1610-25, 2850-85};	//这个是未到值
+static const s32 position_table[] = {0, 205-25, 1610-50, 2850-120};	//这个是未到值
 
 
 
@@ -118,7 +118,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			target = 2;
 		}
 		
-		BLL_Motor_AD_AbsoluteMove(position_table[target],3,3,50);//原5，5，200
+		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,100);//原5，5，200
 //		BLL_Motor_AD_RelativeMove(distance,RUN_REG.MaxAcc,RUN_REG.MaxDec,RUN_REG.MaxSpeed);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		fast_move_flag = 0;
