@@ -56,8 +56,8 @@ static const s32 Special_Positions[] =
 #define FAST_DECE			(50000)
 #define FAST_SPEED		 	(25000)
 
-#define FINAL_OFFSET		(20)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
-#define FINAL_OFFSET_CARD	(-20+20)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
+#define FINAL_OFFSET		(-10)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
+#define FINAL_OFFSET_CARD	(0)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
 
 #define MAX_SLOW_TIME		(800)
 

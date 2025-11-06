@@ -193,7 +193,7 @@ void Claw_Action(u8 onoff)
 	}
 	else if(onoff == 0x20)
 	{
-		JODELL_OPEN_CLOSE_ACTIVETION(140,CLAW_POW_HALF,0xFF);//¼Ð×¦°ë¿ª 150
+		JODELL_OPEN_CLOSE_ACTIVETION(180,CLAW_POW_HALF,0xFF);//¼Ð×¦°ë¿ª 140¡ª¡ª180
 	}
 	else if(onoff == 0x30)
 	{
