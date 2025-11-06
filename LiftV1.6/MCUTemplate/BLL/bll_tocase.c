@@ -69,7 +69,7 @@ static const s32 Special_Positions[] =
 #define G_CARD				(500)
 #define B_CARD				(1165-450)
 
-#define BUG_80_OFFSET		(400) //465 to 400
+#define BUG_80_OFFSET		(K_CARD) //465 to 400
 
 //当参数4发送4或者5时，触发以下的盘点专用偏移
 #define CARD_BUG_OFFSET		(-102)	//正数向上，负数向下
@@ -329,17 +329,17 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				}	
 			}
 		}
-		if((params.Param1>>7) == 0 && (params.Param4 == 1 || params.Param4==4))	//卡格口
+		if((params.Param1>>7) == 0 && (params.Param4 == 1 || params.Param4==4 || params.Param4==21))	//卡格口
 		{
 			target = params.Param1&0x00ff;
 			div10 = (target - 1) / 20;
 			
 			//80号格口bug
 			u8 bug80 = 0;
-			if(target == 80)
+			if(params.Param4==21)
 			{
 				bug80 = 1;
-				target = 79;
+				target = target - 1;
 			}
 			
 			kind = 1;
