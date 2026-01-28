@@ -60,7 +60,7 @@ CommonStateFlag_Type BLL_BackZero_Execute(ParamShadow_Type params, u8 *err)
 		backzero_flag = CSF_Working;
 		USART_ClearFlag(MOTOR_USART, USART_FLAG_TC);	
 		
-		BLL_Moter_AD_BackZero(5,500);
+		BLL_Moter_AD_BackZero(5,400);
 		//WAIT_MOTOR_STOP(100,200,die);
 		try
 		{

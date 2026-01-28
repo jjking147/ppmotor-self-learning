@@ -41,7 +41,7 @@ CommonStateFlag_Type BLL_BackZero_Execute(ParamShadow_Type params, u8 *err)
 		USART_ClearFlag(MOTOR_USART, USART_FLAG_TC);	
 		
 		//Step1：进行回零
-		BLL_Moter_AD_BackZero(1,100);
+		BLL_Moter_AD_BackZero(1,50);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		Clear_Position();
 		has_zero_flag = 1;

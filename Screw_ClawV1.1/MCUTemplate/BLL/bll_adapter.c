@@ -22,7 +22,7 @@ u8 BLL_Moter_AD_BackZero(u16 acce, s32 speed)
 	
 	Set_Speed(speed * 100);
 	
-	Reverse_Run();
+	Forward_Run();
 	
 	return 0;
 }

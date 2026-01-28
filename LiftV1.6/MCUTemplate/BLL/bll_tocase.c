@@ -42,9 +42,9 @@ static BitAction ELECTRIAL_LEVEL = Bit_SET;
 static const s32 Special_Positions[] = 
 {
 	0,
-	-23650+300,//0xFF(255)、出证口
-	-35550+500,//0xFE(254)、入证口
-	-38900+300,//0xFD(253)、入卡口
+	-23650+300+1500,//0xFF(255)、出证口
+	-35550+500+1200,//0xFE(254)、入证口
+	-38900+300+1200,//0xFD(253)、入卡口
 	0   //0xFC(252)、批量口
 };
 
@@ -63,11 +63,11 @@ static const s32 Special_Positions[] =
 
 #define K_BOOK				(930)
 #define G_BOOK				(440)
-#define B_BOOK				(780-450-90)
+#define B_BOOK				(10)
 
 #define K_CARD				(465)
 #define G_CARD				(500)
-#define B_CARD				(1165-450)
+#define B_CARD				(10)
 
 #define BUG_80_OFFSET		(K_CARD) //465 to 400
 
@@ -270,7 +270,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			kind = 0;
 			//Step2：快速相对位移模式
 			fast_move_flag = 1;
-			s32 sub1 = target * K_BOOK + div10 * G_BOOK + B_BOOK;
+			s32 sub1 = (target-1) * K_BOOK + div10 * G_BOOK + B_BOOK;
 			u8 move_rst =  BLL_Motor_AD_AbsoluteMove(-sub1,FAST_ACCE,FAST_DECE,FAST_SPEED);
 			//MyDelay(500);
 			WAIT_MOTOR_STOP(100,3000,die);	//100ms查一次，查300次不行就超时
@@ -345,7 +345,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			kind = 1;
 			//Step2：快速相对位移模式
 			fast_move_flag = 1;
-			s32 sub2 = target * K_CARD + div10 * G_CARD + B_CARD;
+			s32 sub2 = (target-1) * K_CARD + div10 * G_CARD + B_CARD;
 			u8 move_rst = BLL_Motor_AD_AbsoluteMove(-sub2,FAST_ACCE,FAST_DECE,FAST_SPEED);
 			WAIT_MOTOR_STOP(200,3000,die);	//100ms查一次，查300次不行就超时
 			fast_move_flag = 0;

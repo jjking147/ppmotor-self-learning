@@ -47,7 +47,7 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 205-25, 1610-150, 2850-200};	//这个是未到值
+static const s32 position_table[] = {0, 205-100, 1610-250, 2850-300};	//这个是未到值
 
 
 
@@ -78,7 +78,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
-			BLL_Moter_AD_BackZero(10,40);
+			BLL_Moter_AD_BackZero(10,50);
 //			BLL_Moter_AD_BackZero(RUN_REG.ZeroAcc,RUN_REG.ZeroSpeed);
 			WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 			delay_ms(100);
@@ -118,7 +118,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			target = 2;
 		}
 		
-		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,200-50);//原5，5，200
+		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,200-150);//原5，5，200
 //		BLL_Motor_AD_RelativeMove(distance,RUN_REG.MaxAcc,RUN_REG.MaxDec,RUN_REG.MaxSpeed);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		fast_move_flag = 0;

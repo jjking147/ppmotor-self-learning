@@ -19,13 +19,13 @@ volatile u8 has_zero_flag = 0;
 static const s32 position_table[] = 
 {
 	0,
- 11194-2000,               //	8200,//入证 8750 to 8500 to 8200
- 17546-500,               //	13250,//入卡 13750 to 13250
+ -(25000),               //	8200,//入证 8750 to 8500 to 8200
+ -42000,               //	13250,//入卡 13750 to 13250
  21000-1000,               //	18750,//批量入证
- 25190+200,               //	27000,//存证 23125 to 23400 to 27120
- 27083-500,               //	25470,//存卡 22000 to 21750 to 25470
- 15794,               //	15000,	//出证 7650 to 8500 to 8800 to 9200 to 9800 to 10500 to 13500 to 15000
- 20000,               //	21500, //出卡 11250 to 19500 to 19750 to 20000 to 21500
+ -58750,               //	27000,//存证 23125 to 23400 to 27120
+ -(58000+4000-500),               //	25470,//存卡 22000 to 21750 to 25470
+ -32000,               //	15000,	//出证 7650 to 8500 to 8800 to 9200 to 9800 to 10500 to 13500 to 15000
+ -42000,               //	21500, //出卡 11250 to 19500 to 19750 to 20000 to 21500
  25190+200,               //	23500,	//取证 23125 to 23800 to 23500 to 23400 to 23600 to 23500
  27083-500,               //	22500		//取卡 22500
 };
@@ -81,7 +81,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
-			BLL_Moter_AD_BackZero(5,600);
+			BLL_Moter_AD_BackZero(5,400);
 			//WAIT_MOTOR_STOP(200,300,die);	//200ms查一次，查300次不行就超时
 			try
 			{
@@ -99,7 +99,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		}
 		
 		//Step2：快速绝对位移模式
-		BLL_Motor_AD_AbsoluteMove(position_table[params.Param1],10,10,1200);
+		BLL_Motor_AD_AbsoluteMove(position_table[params.Param1],10,10,500);
 //		BLL_Motor_AD_AbsoluteMove(position_table[params.Param1]+zero_position,5,5,100);
 		//WAIT_MOTOR_STOP(200,300,die);	//200ms查一次，查300次不行就超时
 		try

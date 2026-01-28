@@ -59,7 +59,7 @@ void mydelay(u16 ms)
 }
 
 //快速运动模式速度表，0<Abs(终点-起点)<18，所以第0个元素不起作用
-const int fastmove_speed[19]={40,80,100,100,100,80,80,80,80,80,80,80,80,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
+const int fastmove_speed[19]={40,40,40,40,40,40,40,40,80,80,80,80,80,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
 //const int fastmove_speed[19]={0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 	
 #define FIX_DELAY			(2500-1000)	//快速修正完毕后延迟多久开始修正，单位：ms. 1000 to 2500
@@ -80,10 +80,10 @@ const int fastmove_speed[19]={40,80,100,100,100,80,80,80,80,80,80,80,80,80,80,80
 #define FINAL_OFFSET(i)		(final_offsets[i])	//慢速修正完毕后的最终固定偏移，正数为远离0点方向. 20 to 17
 #endif
 	
-#define ROTATE_K		(830)
-#define ROTATE_B		(129)
+#define ROTATE_K		(820)
+#define ROTATE_B		(850)
 	
-static s32 final_offsets[19] = {0,-10,10,15,20,20,20,25,25,20,15,15,-10,18,10,10,10,10,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
+static s32 final_offsets[19] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
 
 	
 
@@ -273,13 +273,18 @@ die:
 	return tocase_flag;
 }
 
+
+
 void BLL_ToCase_EXTIHandler(void)
 {
 	if(tocase_flag == CSF_Working) 
 	{
 		delay_us(100);
+		
 		if(Read_Switch(1) == Bit_RESET)
 		{
+			
+			
 //			if(fast_move_flag || slow_move_flag)
 //			{
 //				if(counter_dir == 0)
