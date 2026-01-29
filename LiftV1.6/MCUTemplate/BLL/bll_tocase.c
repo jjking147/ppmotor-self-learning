@@ -48,7 +48,7 @@ static const s32 Special_Positions[] =
 	0   //0xFC(252)、批量口
 };
 
-static s16 sp_final_offset[5] = {0,200,300,400,0};
+static s16 sp_final_offset[5] = {0,200,100,400,0};
 
 #define FINAL_OFFSET_in 400  //入证口，入卡偏移
 
@@ -82,7 +82,7 @@ static s16 sp_final_offset[5] = {0,200,300,400,0};
 #define MOVE_DELAY			(50)	//目前只做了证格口运动时的延时
 
 //当参数4发送10或者11时，触发以下的插入后移动
-#define PP_DOWN				(85)	//证插入后下移距离(正数向下，负数向上) 10 to 25 to 45 to 25 to 60 to 85
+#define PP_DOWN				(100)	//证插入后下移距离(正数向下，负数向上) 10 to 25 to 45 to 25 to 60 to 85
 #define CARD_DOWN			(70)	//卡插入后下移距离(正数向下，负数向上) 22 to 5 to 20 to 40 to 25 to 70
 
 //==================================================================
