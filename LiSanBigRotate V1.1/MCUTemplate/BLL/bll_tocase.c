@@ -80,7 +80,7 @@ const int fastmove_speed[19]={40,70,70,80,80,80,80,80,80,80,80,80,80,80,80,80,80
 #define FINAL_OFFSET(i)		(final_offsets[i])	//慢速修正完毕后的最终固定偏移，正数为远离0点方向. 20 to 17
 #endif
 	
-#define ROTATE_K		(850)
+#define ROTATE_K		(845)
 #define ROTATE_B		(620)
 	
 static s32 final_offsets[19] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}

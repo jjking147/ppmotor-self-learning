@@ -59,7 +59,7 @@ static const s32 position_table[] = {0, 90, 1610-150, 2850-200};	//这个是未到值
 #define FINAL_OFFSET(i)			(final_offsets[i])	//最终偏移（只对3号位起效）
 #define DEFAULT_FINAL_OFFSET	(10)	//
 
-static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,10,10,00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,10,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 
 
