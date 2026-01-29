@@ -59,7 +59,7 @@ void mydelay(u16 ms)
 }
 
 //快速运动模式速度表，0<Abs(终点-起点)<18，所以第0个元素不起作用
-const int fastmove_speed[19]={40,70,70,80,80,100,100,100,100,110,110,110,110,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
+const int fastmove_speed[19]={40,70,70,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
 //const int fastmove_speed[19]={0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 	
 #define FIX_DELAY			(2500-1000)	//快速修正完毕后延迟多久开始修正，单位：ms. 1000 to 2500
@@ -197,7 +197,8 @@ FIX_GO:
 //			}
 			swtich_flag = 0;
 			slow_move_flag = 1;
-			BLL_Motor_AD_SpeedMode(1,1,FIX_SPEED * fix_dir);
+			//BLL_Motor_AD_SpeedMode(1,1,FIX_SPEED * fix_dir);
+			BLL_Motor_AD_RelativeMove(200,5,5,15);
 				
 			start = ReadTick();
 			while(1)
@@ -217,7 +218,8 @@ FIX_GO:
 				}	
 			}
 		
-			BLL_Motor_AD_SpeedMode_REV(1,1,FIX_SPEED * fix_dir);
+			//BLL_Motor_AD_SpeedMode_REV(1,1,FIX_SPEED * fix_dir);
+			BLL_Motor_AD_RelativeMove(-400,5,5,15);
 				
 			start = ReadTick();	//这句话要加上
 			while(1)
