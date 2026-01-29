@@ -8,13 +8,14 @@
 #include "gpio.h"
 #include "timer.h"
 
-static CommonStateFlag_Type tocase_flag = CSF_Idel;//声明原来的状态
+
+static volatile CommonStateFlag_Type tocase_flag = CSF_Idel;//声明原来的状态
 volatile u8 has_zero_flag = 0;
 volatile u8 last_target = 0;
 static vu8 swtich_flag;
 volatile vu8 swtich_count = 0;
 static vu8 fast_move_flag;
- vu8 slow_move_flag;
+static vu8 slow_move_flag;
 static vu8 counter_dir = 0;
 static BitAction ELECTRIAL_LEVEL = Bit_SET;
 
@@ -47,7 +48,7 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 205-100, 1610-250, 2850-300};	//这个是未到值
+static const s32 position_table[] = {0, 90, 1610-150, 2850-200};	//这个是未到值
 
 
 
@@ -58,7 +59,7 @@ static const s32 position_table[] = {0, 205-100, 1610-250, 2850-300};	//这个是未
 #define FINAL_OFFSET(i)			(final_offsets[i])	//最终偏移（只对3号位起效）
 #define DEFAULT_FINAL_OFFSET	(10)	//
 
-static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,-10,10,00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,10,10,00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 
 
@@ -78,7 +79,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
-			BLL_Moter_AD_BackZero(10,50);
+			BLL_Moter_AD_BackZero(10,100);
 //			BLL_Moter_AD_BackZero(RUN_REG.ZeroAcc,RUN_REG.ZeroSpeed);
 			WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 			delay_ms(100);
@@ -118,13 +119,13 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			target = 2;
 		}
 		
-		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,200-150);//原5，5，200
+		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,150);//原5，5，200
 //		BLL_Motor_AD_RelativeMove(distance,RUN_REG.MaxAcc,RUN_REG.MaxDec,RUN_REG.MaxSpeed);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		fast_move_flag = 0;
 		
 		//goto die;
-		delay_ms(400);
+		delay_ms(700);
 		
 		//Step3：判断位移模式结果，决定如何修正		
 		if(Read_Switch(1) == Bit_SET)
@@ -170,8 +171,9 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					break;
 				}	
 			}
+			
 		
-			BLL_Motor_AD_RelativeMove(-400,5,5,20);//原5，5，20
+			BLL_Motor_AD_RelativeMove(-400,10,10,10);//原5，5，20
 				
 			start = ReadTick();	//这句话要加上
 			while(1)
@@ -181,7 +183,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					Stop();
 					goto card_bug_offset;
 				}
-				if(TickSpan(start) > 2000)
+				if(TickSpan(start) > 4000)
 				{
 					*err = Failure_Aim;
 					has_zero_flag = 0;

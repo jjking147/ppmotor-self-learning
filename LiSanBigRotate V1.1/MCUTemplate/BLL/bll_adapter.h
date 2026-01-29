@@ -31,6 +31,7 @@ u8 BLL_Moter_AD_BackZero(u16 acce, s32 speed);
 u8 BLL_Motor_AD_AbsoluteMove(s32 Position, u16 acce, u16 dece, s32 speed);
 u8 BLL_Motor_AD_RelativeMove(s32 distance, u16 acce, u16 dece, s32 speed);
 u8 BLL_Motor_AD_SpeedMode(u16 acce, u16 dece, s32 speed);
+u8 BLL_Motor_AD_SpeedMode_REV(u16 acce, u16 dece, s32 speed);
 
 #endif 
  

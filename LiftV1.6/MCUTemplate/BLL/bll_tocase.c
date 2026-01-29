@@ -48,6 +48,8 @@ static const s32 Special_Positions[] =
 	0   //0xFC(252)、批量口
 };
 
+#define FINAL_OFFSET_in 300  //入证口，入卡偏移
+
 #define SLOW_ACCE			(5000)
 #define SLOW_DECE			(5000)
 #define SLOW_SPEED		 	(1000)
@@ -57,12 +59,12 @@ static const s32 Special_Positions[] =
 #define FAST_SPEED		 	(25000)
 
 #define FINAL_OFFSET		(-10)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
-#define FINAL_OFFSET_CARD	(0)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
+#define FINAL_OFFSET_CARD	(20)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
 
 #define MAX_SLOW_TIME		(800)
 
 #define K_BOOK				(930)
-#define G_BOOK				(440)
+#define G_BOOK				(460)
 #define B_BOOK				(10)
 
 #define K_CARD				(465)
@@ -524,6 +526,9 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				delay_ms(2);
 				if(Read_Switch(4) == SET)
 				{
+					MyDelay(MOVE_DELAY);
+						BLL_Motor_AD_RelativeMove(FINAL_OFFSET_in,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						WaitMotorStop(200,2000);
 					goto die;
 				}
 			}
@@ -533,10 +538,16 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				{
 					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-2000,MAX_SLOW_TIME,0)) //如果上修成功
 					{
+						MyDelay(MOVE_DELAY);
+						BLL_Motor_AD_RelativeMove(FINAL_OFFSET_in,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						WaitMotorStop(200,2000);
 						goto die;
 					}
 					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,4000,MAX_SLOW_TIME*2,0)) //如果下修成功
 					{
+						MyDelay(MOVE_DELAY);
+						BLL_Motor_AD_RelativeMove(FINAL_OFFSET_in,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						WaitMotorStop(200,2000);
 						goto die;
 					}
 					else

@@ -65,3 +65,16 @@ u8 BLL_Motor_AD_SpeedMode(u16 acce, u16 dece, s32 speed)
 
 	return 0;
 }
+
+u8 BLL_Motor_AD_SpeedMode_REV(u16 acce, u16 dece, s32 speed)
+{
+  Set_Acce_Time(speed/(acce * 10));
+	
+	Set_Dece_Time(speed/(dece * 10));
+	
+	Set_Speed(speed * 100);
+	
+	Reverse_Run();
+
+	return 0;
+}

@@ -59,7 +59,7 @@ void mydelay(u16 ms)
 }
 
 //快速运动模式速度表，0<Abs(终点-起点)<18，所以第0个元素不起作用
-const int fastmove_speed[19]={40,40,40,40,40,40,40,40,80,80,80,80,80,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
+const int fastmove_speed[19]={40,70,70,80,80,100,100,100,100,110,110,110,110,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
 //const int fastmove_speed[19]={0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 	
 #define FIX_DELAY			(2500-1000)	//快速修正完毕后延迟多久开始修正，单位：ms. 1000 to 2500
@@ -68,7 +68,7 @@ const int fastmove_speed[19]={40,40,40,40,40,40,40,40,80,80,80,80,80,80,80,80,80
 
 #define FINAL_DELAY			(800)	//慢速修正结束后延迟多久开始最终偏移//1800——800
 #define FINAL_OFFSET_FIXED		(0)
-#define FINAL_SPEED			(10)		//最终固定偏移的运动速度
+#define FINAL_SPEED			(40)		//最终固定偏移的运动速度
 
 #define FIX_NORM_MAX_TIME		(5000)	//普通修正最大时间
 #define FIX_SELF_MAX_TIEM		(3000)	//自修正最大时间
@@ -80,8 +80,8 @@ const int fastmove_speed[19]={40,40,40,40,40,40,40,40,80,80,80,80,80,80,80,80,80
 #define FINAL_OFFSET(i)		(final_offsets[i])	//慢速修正完毕后的最终固定偏移，正数为远离0点方向. 20 to 17
 #endif
 	
-#define ROTATE_K		(820)
-#define ROTATE_B		(850)
+#define ROTATE_K		(825)
+#define ROTATE_B		(820)
 	
 static s32 final_offsets[19] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
 
@@ -103,7 +103,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
-			BLL_Moter_AD_BackZero(10,80);
+			BLL_Moter_AD_BackZero(10,100);
 			WAIT_MOTOR_STOP(200,3000,die);	//100ms查一次，查200次不行就超时
 			mydelay(3000);
 			Clear_Position();
@@ -170,7 +170,7 @@ FIX_GO:
 		{
 //		if((Read_Switch(1) == Bit_RESET) && (swtich_count == params.Param1 * 2))
 			mydelay(FINAL_DELAY);
-			BLL_Motor_AD_RelativeMove(FINAL_OFFSET(M),10,10,FINAL_SPEED);
+			BLL_Motor_AD_RelativeMove(FINAL_OFFSET(M),20,20,FINAL_SPEED);
 			WAIT_MOTOR_STOP(100,30000,die);	
 			goto die;
 		}
@@ -217,7 +217,7 @@ FIX_GO:
 				}	
 			}
 		
-			BLL_Motor_AD_SpeedMode(1,1,-(FIX_SPEED * fix_dir));
+			BLL_Motor_AD_SpeedMode_REV(1,1,FIX_SPEED * fix_dir);
 				
 			start = ReadTick();	//这句话要加上
 			while(1)
@@ -226,7 +226,7 @@ FIX_GO:
 				{
 					Stop();
 					mydelay(FINAL_DELAY);
-					BLL_Motor_AD_RelativeMove(FINAL_OFFSET(M),10,10,FINAL_SPEED);
+					BLL_Motor_AD_RelativeMove(FINAL_OFFSET(M),20,20,FINAL_SPEED);
 					WAIT_MOTOR_STOP(100,30000,die);	
 					goto die;
 				}
