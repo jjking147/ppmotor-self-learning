@@ -130,7 +130,7 @@ u8 BLL_Motor_AD_AbsoluteMove(s32 distance, s32 acce, s32 dece, s32 speed)
 		return 2;
 	
 	s32 move = distance - position_current;
-	if(abs(move) > 70000)	//绝对位移最大限度，每1000=同步轮转一圈，同步轮半径大约2.3cm
+	if(abs(move) > 100000)	//绝对位移最大限度，每1000=同步轮转一圈，同步轮半径大约2.3cm
 		return 1;
 	BLL_Motor_AD_RelativeMove(move, acce, dece, speed);
 

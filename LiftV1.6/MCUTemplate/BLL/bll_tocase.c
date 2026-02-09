@@ -48,7 +48,7 @@ static const s32 Special_Positions[] =
 	0   //0xFC(252)、批量口
 };
 
-static s16 sp_final_offset[5] = {0,200,100,400,0};
+static s16 sp_final_offset[5] = {0,170,450,360,0};
 
 #define FINAL_OFFSET_in 400  //入证口，入卡偏移
 
@@ -60,10 +60,10 @@ static s16 sp_final_offset[5] = {0,200,100,400,0};
 #define FAST_DECE			(50000)
 #define FAST_SPEED		 	(25000)
 
-#define FINAL_OFFSET		(-60)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
-#define FINAL_OFFSET_CARD	(20)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
+#define FINAL_OFFSET		(-80)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
+#define FINAL_OFFSET_CARD	(35)		//卡最终偏移(正数向下，负数向上) 50 to 35
 
-#define MAX_SLOW_TIME		(800)
+#define MAX_SLOW_TIME		(1000)
 
 #define K_BOOK				(930)
 #define G_BOOK				(460)
@@ -82,7 +82,7 @@ static s16 sp_final_offset[5] = {0,200,100,400,0};
 #define MOVE_DELAY			(50)	//目前只做了证格口运动时的延时
 
 //当参数4发送10或者11时，触发以下的插入后移动
-#define PP_DOWN				(100)	//证插入后下移距离(正数向下，负数向上) 10 to 25 to 45 to 25 to 60 to 85
+#define PP_DOWN				(155)	//证插入后下移距离(正数向下，负数向上) 10 to 25 to 45 to 25 to 115 to 136
 #define CARD_DOWN			(70)	//卡插入后下移距离(正数向下，负数向上) 22 to 5 to 20 to 40 to 25 to 70
 
 //==================================================================
@@ -307,14 +307,14 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			{			
 				try
 				{
-					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-400,MAX_SLOW_TIME,0)) //如果上修成功
+					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-500,MAX_SLOW_TIME,0)) //如果上修成功
 					{
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
 						WaitMotorStop(200,2000);
 						goto die;
 					}
-					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,800,MAX_SLOW_TIME*2,0)) //如果下修成功
+					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,1000,MAX_SLOW_TIME*2,0)) //如果下修成功
 					{
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
@@ -333,7 +333,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				}	
 			}
 		}
-		if((params.Param1>>7) == 0 && (params.Param4 == 1 || params.Param4==4 || params.Param4==21))	//卡格口
+		if((params.Param1&0xf0) != 0xf0 && (params.Param4 == 1 || params.Param4==4 || params.Param4==21))	//卡格口
 		{
 			target = params.Param1&0x00ff;
 			div10 = (target - 1) / 20;
