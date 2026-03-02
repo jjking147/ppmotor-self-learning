@@ -92,6 +92,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				*err = GetLastError();
 				goto die;
 			}
+			delay_ms(1000);
 			Clear_Position();
 			delay_ms(500);
 //			zero_position = Get_Position();
