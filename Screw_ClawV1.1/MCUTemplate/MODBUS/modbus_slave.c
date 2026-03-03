@@ -162,14 +162,16 @@ void ModBus_Pool(void)
 		MState = MODBUS_HANDLING;	
 		if (RecBuff[0] != MODBUS_ADDR)
 		{
-			 MState = MODBUS_IDLE;
+			MState = MODBUS_IDLE;
 			return;
 		}
 #if SKIP_CRC==0
 		if (!Check_CRC16(RecBuff, RecCount))
 		{
-			errcode = MODBUS_ERR_CRC;
-			goto errorsend;
+			//errcode = MODBUS_ERR_CRC;
+			//goto errorsend;
+			MState = MODBUS_IDLE;
+			return;
 		}
 #endif
 		FUN_485_DIR(DIR_485_WRITEONLY);
