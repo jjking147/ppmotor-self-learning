@@ -19,8 +19,8 @@ extern u8 MOTOR_ADDRESS;
 //extern u8 Master_Receive_Buff[MODBUS_MASTER_BUFF_LEN];
 
 
-#define PP_ROLL_IN_DELAY		(4100)	//证卷入延时
-#define CARD_ROLL_IN_DELAY		(2900)	//卡卷入延时
+#define PP_ROLL_IN_DELAY		(4100-2500)	//证卷入延时
+#define CARD_ROLL_IN_DELAY		(2900-1500)	//卡卷入延时
 #define ROLL_OUT_DELAY			(4900)	//卷出延时
 #define BATCH_IN_DELAY			(3900)	//批量口延时
 
@@ -98,11 +98,11 @@ CommonStateFlag_Type BLL_Roll_Execute(ParamShadow_Type params, u8 *err)
 		
 		if(params.Param2 == 1)
 		{
-			BLL_Motor_AD_SpeedMode(30,80,150);
+			BLL_Motor_AD_SpeedMode(50,80,200);//150-300
 		}
 		else if(params.Param2 == 2)
 		{
-			BLL_Motor_AD_SpeedMode(30,80,-150);
+			BLL_Motor_AD_SpeedMode(50,80,-200);
 		}
 		
 		switch(params.Param1){
