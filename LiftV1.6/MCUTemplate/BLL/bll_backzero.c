@@ -115,7 +115,7 @@ static void ZeroMove(u8 dir,u32 acc,u32 dece,u32 speed,s32 maxlen)
 
 void BackZero(void)
 {
-	ZeroMove(0,15000,150000,15000,140000);	//向下运动
+	ZeroMove(0,15000,150000,20000,140000);	//向下运动 15000-20000
 	delay_ms(500);
 	ZeroMove(1,5000,50000,2000,-5000);	//向上运动
 	if(Read_Switch(5) == RESET)

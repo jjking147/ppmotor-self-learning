@@ -42,13 +42,13 @@ static BitAction ELECTRIAL_LEVEL = Bit_SET;
 static const s32 Special_Positions[] = 
 {
 	0,
-	-23650+300+1500,//0xFF(255)、出证口
-	-35550+500+1200,//0xFE(254)、入证口
-	-38900+300+1200,//0xFD(253)、入卡口
+	-23650+300+1500-300,//0xFF(255)、出证口
+	-35550+500+1200-200,//0xFE(254)、入证口
+	-38900+300+1200-200,//0xFD(253)、入卡口
 	0   //0xFC(252)、批量口
 };
 
-static s16 sp_final_offset[5] = {0,170,450,360,0};
+static s16 sp_final_offset[5] = {0,170,450-30,360,150};
 
 #define FINAL_OFFSET_in 400  //入证口，入卡偏移
 
@@ -58,10 +58,10 @@ static s16 sp_final_offset[5] = {0,170,450,360,0};
 
 #define FAST_ACCE			(80000)
 #define FAST_DECE			(50000)
-#define FAST_SPEED		 	(25000)
+#define FAST_SPEED		 	(40000)//25000-30000-33000
 
-#define FINAL_OFFSET		(-60)	//证最终偏移(正数向下，负数向上) 20 to 0 to 20 to 0 to -25
-#define FINAL_OFFSET_CARD	(20)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
+#define FINAL_OFFSET		(-80)	//证最终偏移(正数向下，负数向上) -80
+#define FINAL_OFFSET_CARD	(35)		//卡最终偏移(正数向下，负数向上) 28 to 35 to 55 to 70 to 20
 
 #define MAX_SLOW_TIME		(1000)
 
@@ -79,10 +79,10 @@ static s16 sp_final_offset[5] = {0,170,450,360,0};
 #define CARD_BUG_OFFSET		(-102)	//正数向上，负数向下
 #define PP_BUG_OFFSET		(-190)	//正数向上，负数向下
 
-#define MOVE_DELAY			(50)	//目前只做了证格口运动时的延时
+#define MOVE_DELAY			(20)	//目前只做了证格口运动时的延时50-30-20
 
 //当参数4发送10或者11时，触发以下的插入后移动
-#define PP_DOWN				(155)	//证插入后下移距离(正数向下，负数向上) 10 to 25 to 45 to 25 to 115 to 136
+#define PP_DOWN				(160)	//证插入后下移距离(正数向下，负数向上) 155-160
 #define CARD_DOWN			(70)	//卡插入后下移距离(正数向下，负数向上) 22 to 5 to 20 to 40 to 25 to 70
 
 //==================================================================
@@ -239,7 +239,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		if(has_zero_flag == 0)
 		{
 			BackZero();
-			MyDelay(1000);
+			MyDelay(800);//1000-800
 		}
 		
 		if(params.Param4 == 10 || params.Param4 == 11)

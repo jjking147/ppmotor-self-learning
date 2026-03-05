@@ -48,7 +48,7 @@ static void Clear_Manual_Flags(void)
 	}while((_motor_sate & 0x03) == 0x03); \
 }
 
-static const s32 position_table[] = {0, 80, 1610-200, 2850-300};	//这个是未到值
+static const s32 position_table[] = {0, 80-20, 1610-140, 2850-200};	//这个是未到值
 
 
 
@@ -59,7 +59,7 @@ static const s32 position_table[] = {0, 80, 1610-200, 2850-300};	//这个是未到值
 #define FINAL_OFFSET(i)			(final_offsets[i])	//最终偏移（只对3号位起效）
 #define DEFAULT_FINAL_OFFSET	(10)	//
 
-static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,10,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,10,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//45-40
 
 
 
@@ -89,7 +89,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			swtich_count = 0;
 		}		
 		
-		delay_ms(500);
+		delay_ms(300);//500-300
 		
 		//Step2：快速相对位移模式
 		if(params.Param1 - last_target > 0)
@@ -119,7 +119,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			target = 2;
 		}
 		
-		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,150);//原5，5，200
+		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,170);//原5，5，200
 //		BLL_Motor_AD_RelativeMove(distance,RUN_REG.MaxAcc,RUN_REG.MaxDec,RUN_REG.MaxSpeed);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		fast_move_flag = 0;
