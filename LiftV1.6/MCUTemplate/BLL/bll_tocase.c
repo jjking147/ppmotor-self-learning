@@ -333,7 +333,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				}	
 			}
 		}
-		if((params.Param1>>7) == 0 && (params.Param4 == 1 || params.Param4==4 || params.Param4==21))	//卡格口
+		if((params.Param1 & 0xf0) != 0xf0 && (params.Param4 == 1 || params.Param4==4 || params.Param4==21))	//卡格口
 		{
 			target = params.Param1&0x00ff;
 			div10 = (target - 1) / 20;
