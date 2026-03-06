@@ -59,7 +59,7 @@ void mydelay(u16 ms)
 }
 
 //快速运动模式速度表，0<Abs(终点-起点)<18，所以第0个元素不起作用
-const int fastmove_speed[19]={10,30,40,60,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
+const int fastmove_speed[19]={10,30,40,60,80-5,80-5,80-5,80-5,80-5,80-5,80-5,80-5,80-5,80,80,80,80,80,80}; //8 130 to 100，9 130 to 110
 //const int fastmove_speed[19]={0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 	
 #define FIX_DELAY			(3000)	//快速修正完毕后延迟多久开始修正，单位：ms. 1000 to 2500
@@ -83,7 +83,7 @@ const int fastmove_speed[19]={10,30,40,60,80,80,80,80,80,80,80,80,80,80,80,80,80
 #define ROTATE_K		(843)
 #define ROTATE_B		(600) //625
 	
-static s32 final_offsets[19] = {0,10,10,10,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
+static s32 final_offsets[19] = {0,-5,-5,-5,-5,-5,-5,-5,-5,-5,-5,-5,-5,-5,0,0,0,0,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
 
 	
 
@@ -103,7 +103,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
-			BLL_Moter_AD_BackZero(10,100);
+			BLL_Moter_AD_BackZero(10,80);
 			WAIT_MOTOR_STOP(200,3000,die);	//100ms查一次，查200次不行就超时
 			mydelay(3000);
 			Clear_Position();
@@ -154,7 +154,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		BLL_Motor_AD_AbsoluteMove(distance,1,1,fastmove_speed[speed_select]);
 //		delay_ms(400);
 //		My_EXTI_Cmd(1,ENABLE);
-		WAIT_MOTOR_STOP(200,30000,die);	//100ms查一次，查200次不行就超时
+		WAIT_MOTOR_STOP(100,30000,die);	//100ms查一次，查200次不行就超时
 		
 		
 		

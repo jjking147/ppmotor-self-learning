@@ -21,7 +21,7 @@ extern u8 MOTOR_ADDRESS;
 
 #define PP_ROLL_IN_DELAY		(4100-2500)	//证卷入延时
 #define CARD_ROLL_IN_DELAY		(2900-1500)	//卡卷入延时
-#define ROLL_OUT_DELAY			(4900)	//卷出延时
+#define ROLL_OUT_DELAY			(4900-2900)	//卷出延时
 #define BATCH_IN_DELAY			(3900)	//批量口延时
 
 

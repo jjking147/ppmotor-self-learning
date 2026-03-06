@@ -85,7 +85,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			//WAIT_MOTOR_STOP(200,300,die);	//200ms查一次，查300次不行就超时
 			try
 			{
-				WaitMotorStop(200,300);
+				WaitMotorStop(100,600);
 			}
 			catch
 			{
@@ -100,12 +100,12 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		}
 		
 		//Step2：快速绝对位移模式
-		BLL_Motor_AD_AbsoluteMove(position_table[params.Param1],30,30,750);//500-650,15.15.650
+		BLL_Motor_AD_AbsoluteMove(position_table[params.Param1],30+10+10,30+10+10,750);//500-650,15.15.650
 //		BLL_Motor_AD_AbsoluteMove(position_table[params.Param1]+zero_position,5,5,100);
 		//WAIT_MOTOR_STOP(200,300,die);	//200ms查一次，查300次不行就超时
 		try
 		{
-			WaitMotorStop(200,300);
+			WaitMotorStop(100,600);
 		}
 		catch
 		{

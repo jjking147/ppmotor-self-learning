@@ -65,9 +65,9 @@ static s16 sp_final_offset[5] = {0,170,450-30,360,150};
 
 #define MAX_SLOW_TIME		(1000)
 
-#define K_BOOK				(930)
-#define G_BOOK				(460)
-#define B_BOOK				(10)
+#define K_BOOK				(933+0.6)
+#define G_BOOK				(460+4)
+#define B_BOOK				(20+5+5)
 
 #define K_CARD				(465)
 #define G_CARD				(500)
@@ -82,7 +82,7 @@ static s16 sp_final_offset[5] = {0,170,450-30,360,150};
 #define MOVE_DELAY			(20)	//目前只做了证格口运动时的延时50-30-20
 
 //当参数4发送10或者11时，触发以下的插入后移动
-#define PP_DOWN				(160)	//证插入后下移距离(正数向下，负数向上) 155-160
+#define PP_DOWN				(160+10+10)	//证插入后下移距离(正数向下，负数向上) 155-160-165
 #define CARD_DOWN			(70)	//卡插入后下移距离(正数向下，负数向上) 22 to 5 to 20 to 40 to 25 to 70
 
 //==================================================================
@@ -249,7 +249,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			try
 			{
 				BLL_Motor_AD_RelativeMove(move,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-				WaitMotorStop(200,2000);
+				WaitMotorStop(100,4000);
 			}
 			catch
 			{
@@ -299,7 +299,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				{
 					MyDelay(MOVE_DELAY);
 					BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);
-					WAIT_MOTOR_STOP(200,3000,die);	//100ms查一次，查300次不行就超时
+					WAIT_MOTOR_STOP(100,5000,die);	//100ms查一次，查300次不行就超时
 					goto die;
 				}
 			}
@@ -311,14 +311,14 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					{
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 						goto die;
 					}
 					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,1000,MAX_SLOW_TIME*2,0)) //如果下修成功
 					{
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 						goto die;
 					}
 					else
@@ -351,7 +351,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			fast_move_flag = 1;
 			s32 sub2 = (target-1) * K_CARD + div10 * G_CARD + B_CARD;
 			u8 move_rst = BLL_Motor_AD_AbsoluteMove(-sub2,FAST_ACCE,FAST_DECE,FAST_SPEED);
-			WAIT_MOTOR_STOP(200,3000,die);	//100ms查一次，查300次不行就超时
+			WAIT_MOTOR_STOP(100,5000,die);	//100ms查一次，查300次不行就超时
 			fast_move_flag = 0;
 
 			if(move_rst)
@@ -381,16 +381,16 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					if(bug80)	//80bug
 					{
 						BLL_Motor_AD_RelativeMove(-BUG_80_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//80号卡格口修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 					}
 					if(params.Param4 == 4)
 					{
 						BLL_Motor_AD_RelativeMove(-CARD_BUG_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 					}
 					MyDelay(MOVE_DELAY);
 					BLL_Motor_AD_RelativeMove(FINAL_OFFSET_CARD,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-					WaitMotorStop(200,2000);
+					WaitMotorStop(100,4000);
 					goto die;
 				}
 			}
@@ -404,16 +404,16 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 						if(bug80)	//80bug
 						{
 							BLL_Motor_AD_RelativeMove(-BUG_80_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//80号卡格口修正
-							WaitMotorStop(200,2000);
+							WaitMotorStop(100,4000);
 						}
 						if(params.Param4 == 4)
 						{
 							BLL_Motor_AD_RelativeMove(-CARD_BUG_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	
-							WaitMotorStop(200,2000);
+							WaitMotorStop(100,4000);
 						}
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET_CARD,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 						goto die;
 					}
 					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,600,MAX_SLOW_TIME*2,1)) //如果下修成功
@@ -422,16 +422,16 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 						if(bug80)	//80bug
 						{
 							BLL_Motor_AD_RelativeMove(-BUG_80_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//80号卡格口修正
-							WaitMotorStop(200,2000);
+							WaitMotorStop(100,4000);
 						}
 						if(params.Param4 == 4)
 						{
 							BLL_Motor_AD_RelativeMove(-CARD_BUG_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	
-							WaitMotorStop(200,2000);
+							WaitMotorStop(100,4000);
 						}
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET_CARD,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 						goto die;
 					}
 					else
@@ -530,7 +530,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				{
 					MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(sp_final_offset[special_case],SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 					goto die;
 				}
 			}
@@ -542,14 +542,14 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					{
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(sp_final_offset[special_case],SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 						goto die;
 					}
 					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,4000,MAX_SLOW_TIME*2,0)) //如果下修成功
 					{
 						MyDelay(MOVE_DELAY);
 						BLL_Motor_AD_RelativeMove(sp_final_offset[special_case],SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(200,2000);
+						WaitMotorStop(100,4000);
 						goto die;
 					}
 					else
