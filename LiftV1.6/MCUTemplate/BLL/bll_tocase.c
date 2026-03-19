@@ -87,6 +87,8 @@ static s16 sp_final_offset[5] = {0,170,450-30,360,150};
 
 //==================================================================
 
+#define SET_PROCESS(h,l)	(REALTIME_REG.WorkingProcess = (((h)<<8)|(l)))
+
 //清除flag状态
 void BLL_ToCase_ClearFlag(void)
 {
@@ -173,6 +175,7 @@ __forceinline u8 Check_Switch( u8 kind,  u8 special_case)
 
 static u8 CaseSlowMove(u32 acc,u32 dece,u32 speed,s32 maxdistance,u16 maxtime,u8 kind)
 {
+	SET_PROCESS(maxdistance<0?-1:1,26);
 	slow_move_flag = 1;
 	swtich_flag = 0;
 	BLL_Motor_AD_RelativeMove(maxdistance,acc,dece,speed);
@@ -234,7 +237,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		running_flag = 1;
 		USART_ClearFlag(MOTOR_USART, USART_FLAG_TC);	
 		Clear_Manual_Flags();
-		
+		SET_PROCESS(0,1);
 		//Step1：进行回零
 		if(has_zero_flag == 0)
 		{
@@ -275,9 +278,12 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			//Step2：快速相对位移模式
 			fast_move_flag = 1;
 			s32 sub1 = (target-1) * K_BOOK + div10 * G_BOOK + B_BOOK;
+			SET_PROCESS(0,2);
 			u8 move_rst =  BLL_Motor_AD_AbsoluteMove(-sub1,FAST_ACCE,FAST_DECE,FAST_SPEED);
+			SET_PROCESS(0,3);
 			//MyDelay(500);
 			WAIT_MOTOR_STOP(100,3000,die);	//100ms查一次，查300次不行就超时
+			SET_PROCESS(0,4);
 			
 			fast_move_flag = 0;
 
@@ -298,8 +304,11 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				if((Read_Switch(1) == SET) && (Read_Switch(2) == SET))
 				{
 					MyDelay(MOVE_DELAY);
+					SET_PROCESS(0,5);
 					BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);
+					SET_PROCESS(0,6);
 					WAIT_MOTOR_STOP(100,5000,die);	//100ms查一次，查300次不行就超时
+					SET_PROCESS(0,7);
 					goto die;
 				}
 			}
@@ -310,15 +319,21 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-500,MAX_SLOW_TIME,0)) //如果上修成功
 					{
 						MyDelay(MOVE_DELAY);
+						SET_PROCESS(0,8);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						SET_PROCESS(0,9);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,10);
 						goto die;
 					}
 					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,1000,MAX_SLOW_TIME*2,0)) //如果下修成功
 					{
 						MyDelay(MOVE_DELAY);
+						SET_PROCESS(0,11);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET-pp_bug,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						SET_PROCESS(0,12);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,13);
 						goto die;
 					}
 					else
@@ -350,8 +365,11 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			//Step2：快速相对位移模式
 			fast_move_flag = 1;
 			s32 sub2 = (target-1) * K_CARD + div10 * G_CARD + B_CARD;
+			SET_PROCESS(0,14);
 			u8 move_rst = BLL_Motor_AD_AbsoluteMove(-sub2,FAST_ACCE,FAST_DECE,FAST_SPEED);
+			SET_PROCESS(0,15);
 			WAIT_MOTOR_STOP(100,5000,die);	//100ms查一次，查300次不行就超时
+			SET_PROCESS(0,16);
 			fast_move_flag = 0;
 
 			if(move_rst)
@@ -380,17 +398,26 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				{
 					if(bug80)	//80bug
 					{
+						SET_PROCESS(0,17);
 						BLL_Motor_AD_RelativeMove(-BUG_80_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//80号卡格口修正
+						SET_PROCESS(0,18);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,19);
 					}
 					if(params.Param4 == 4)
 					{
+						SET_PROCESS(0,20);
 						BLL_Motor_AD_RelativeMove(-CARD_BUG_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	
+						SET_PROCESS(0,21);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,22);
 					}
 					MyDelay(MOVE_DELAY);
+					SET_PROCESS(0,23);
 					BLL_Motor_AD_RelativeMove(FINAL_OFFSET_CARD,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+					SET_PROCESS(0,24);
 					WaitMotorStop(100,4000);
+					SET_PROCESS(0,25);
 					goto die;
 				}
 			}
@@ -403,17 +430,26 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 						//卡就不进行最终修正了
 						if(bug80)	//80bug
 						{
+							SET_PROCESS(0,27);
 							BLL_Motor_AD_RelativeMove(-BUG_80_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//80号卡格口修正
+							SET_PROCESS(0,28);
 							WaitMotorStop(100,4000);
+							SET_PROCESS(0,29);
 						}
 						if(params.Param4 == 4)
 						{
+							SET_PROCESS(0,30);
 							BLL_Motor_AD_RelativeMove(-CARD_BUG_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	
+							SET_PROCESS(0,31);
 							WaitMotorStop(100,4000);
+							SET_PROCESS(0,32);
 						}
 						MyDelay(MOVE_DELAY);
+						SET_PROCESS(0,33);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET_CARD,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						SET_PROCESS(0,34);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,35);
 						goto die;
 					}
 					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,600,MAX_SLOW_TIME*2,1)) //如果下修成功
@@ -421,17 +457,26 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 						//卡就不进行最终修正了
 						if(bug80)	//80bug
 						{
+							SET_PROCESS(0,36);
 							BLL_Motor_AD_RelativeMove(-BUG_80_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//80号卡格口修正
+							SET_PROCESS(0,37);
 							WaitMotorStop(100,4000);
+							SET_PROCESS(0,38);
 						}
 						if(params.Param4 == 4)
 						{
+							SET_PROCESS(0,39);
 							BLL_Motor_AD_RelativeMove(-CARD_BUG_OFFSET,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	
+							SET_PROCESS(0,40);
 							WaitMotorStop(100,4000);
+							SET_PROCESS(0,41);
 						}
 						MyDelay(MOVE_DELAY);
+						SET_PROCESS(0,42);
 						BLL_Motor_AD_RelativeMove(FINAL_OFFSET_CARD,SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						SET_PROCESS(0,43);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,44);
 						goto die;
 					}
 					else
@@ -474,7 +519,9 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			//Step2：快速相对位移模式
 			fast_move_flag = 1;
 			counter_flag = 0;
+			SET_PROCESS(0,45);
 			u8 move_rst = BLL_Motor_AD_AbsoluteMove(Special_Positions[special_case],FAST_ACCE,FAST_DECE,FAST_SPEED);
+			SET_PROCESS(0,46);
 			{
 				vu16 _motor_sate = 0,_retry = 0; 
 				u32 starttime = 0;
@@ -529,8 +576,11 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				if(Read_Switch(4) == SET)
 				{
 					MyDelay(MOVE_DELAY);
-						BLL_Motor_AD_RelativeMove(sp_final_offset[special_case],SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
-						WaitMotorStop(100,4000);
+					SET_PROCESS(0,47);
+					BLL_Motor_AD_RelativeMove(sp_final_offset[special_case],SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+					SET_PROCESS(0,48);
+					WaitMotorStop(100,4000);
+					SET_PROCESS(0,49);
 					goto die;
 				}
 			}
@@ -541,15 +591,21 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 					if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,-2000,MAX_SLOW_TIME,0)) //如果上修成功
 					{
 						MyDelay(MOVE_DELAY);
+						SET_PROCESS(0,50);
 						BLL_Motor_AD_RelativeMove(sp_final_offset[special_case],SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						SET_PROCESS(0,51);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,52);
 						goto die;
 					}
 					else if(CaseSlowMove(SLOW_ACCE,SLOW_ACCE*10,SLOW_SPEED,4000,MAX_SLOW_TIME*2,0)) //如果下修成功
 					{
 						MyDelay(MOVE_DELAY);
+						SET_PROCESS(0,53);
 						BLL_Motor_AD_RelativeMove(sp_final_offset[special_case],SLOW_ACCE,SLOW_DECE,SLOW_SPEED);	//最终修正
+						SET_PROCESS(0,54);
 						WaitMotorStop(100,4000);
+						SET_PROCESS(0,55);
 						goto die;
 					}
 					else
@@ -596,6 +652,7 @@ die:
 	tocase_flag = CSF_Finished;
 	running_flag = 0;
 	Clear_Manual_Flags();
+	SET_PROCESS(0,56);
 	return tocase_flag;
 }
 

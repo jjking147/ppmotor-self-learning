@@ -52,6 +52,7 @@ static void Check_Status_Cb(ModBusFailCode_Type err,u8* data,u16 len)
 {
 	wait_flag = 0;
 	code = data[4];
+	REALTIME_REG.LastMotorState = code | ((u8)err);
 }
 
 u8 Check_Status(void)

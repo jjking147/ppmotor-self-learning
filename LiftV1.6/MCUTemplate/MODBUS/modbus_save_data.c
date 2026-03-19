@@ -18,7 +18,8 @@ REGION_TYPE(1) Reg_4x_1 =
 
 REGION_TYPE(2) Reg_4x_2 = 
 {
-		
+	.WorkingProcess = 0,
+	.LastMotorState = 0
 };
 
 REGION_TYPE(3) Reg_4x_3 = 

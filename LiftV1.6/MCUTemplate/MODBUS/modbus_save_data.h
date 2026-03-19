@@ -111,6 +111,8 @@ DEF_REGION_TYPE(2) {
 	u16 StretchState;
 	u16 ClawState;
 	u16 RollerState;
+	u16 WorkingProcess;
+	u16 LastMotorState;
 }REGION_TYPE(2);
 
 DEF_REGION_TYPE(3) {
