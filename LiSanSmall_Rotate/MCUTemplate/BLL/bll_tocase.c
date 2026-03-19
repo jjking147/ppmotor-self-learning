@@ -59,7 +59,7 @@ static const s32 position_table[] = {0, 80-20, 1610-140, 2850-200};	//这个是未到
 #define FINAL_OFFSET(i)			(final_offsets[i])	//最终偏移（只对3号位起效）
 #define DEFAULT_FINAL_OFFSET	(10)	//
 
-static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,10,42-3-4-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//45-40
+static s32 final_offsets[19] = {DEFAULT_FINAL_OFFSET,10,42-3-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//45-40-31-36
 
 
 
@@ -119,7 +119,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			target = 2;
 		}
 		
-		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,170);//原5，5，200
+		BLL_Motor_AD_AbsoluteMove(position_table[target],5,5,170-20);//原5，5，200
 //		BLL_Motor_AD_RelativeMove(distance,RUN_REG.MaxAcc,RUN_REG.MaxDec,RUN_REG.MaxSpeed);
 		WAIT_MOTOR_STOP(100,200,die);	//100ms查一次，查200次不行就超时
 		fast_move_flag = 0;
@@ -228,8 +228,8 @@ card_bug_offset:
 		if(1==1)
 		{
 			u8 M = params.Param4;
-			delay_ms(800-400);
-			BLL_Motor_AD_RelativeMove(FINAL_OFFSET(target),5,5,200);
+			delay_ms(800-100);
+			BLL_Motor_AD_RelativeMove(FINAL_OFFSET(target),5,5,20);
 			WAIT_MOTOR_STOP(100,2000,die);
 		}
 

@@ -113,7 +113,7 @@ void MyDelay(u16 ms)
 	vu16 _motor_sate = 0,_retry = 0; \
 	do \
 	{ \
-		MyDelay(300); \
+		delay_ms(300); \
 		if(_retry++ >= n) \
 		{ \
 			*err = Failure_Timeout; \
@@ -135,7 +135,7 @@ static void WaitMotorStop(u16 span,u16 n)
 	u16 _motor_sate = 0,_retry = 0; 
 	do 
 	{ 
-		delay_ms(span); 
+		delay_ms(span+100); 
 		if(_retry++ >= n) 
 		{ 
 			throw(Failure_Timeout);
