@@ -263,7 +263,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			goto die;
 		}
 		
-		if((params.Param1>>7) == 0 && (params.Param4 == 0 || params.Param4==5))	//证格口
+		if((params.Param1>>7) == 0 && (params.Param4 == 0 || params.Param4==5 || params.Param4==30 || params.Param4==40))	//证格口
 		{
 			target = params.Param1&0x00ff;
 			div10 = (target - 1) / 10;
@@ -279,6 +279,9 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			fast_move_flag = 1;
 			s32 sub1 = (target-1) * K_BOOK + div10 * G_BOOK + B_BOOK;
 			SET_PROCESS(0,2);
+			
+			if(params.Param4==40)	//参数4=40时，不做快速运动，直接进行慢速修正(证)
+				goto SLOW_BOOK;
 			u8 move_rst =  BLL_Motor_AD_AbsoluteMove(-sub1,FAST_ACCE,FAST_DECE,FAST_SPEED);
 			SET_PROCESS(0,3);
 			//MyDelay(500);
@@ -295,6 +298,9 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			
 			MyDelay(MOVE_DELAY);
 			
+			if(params.Param4==30)	//参数4=30时，只执行快速运动(证)
+				goto die;
+SLOW_BOOK:			
 			//goto die; //暂时不用修正
 			
 			//Step3：判断位移模式结果，决定如何修正
@@ -348,7 +354,7 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 				}	
 			}
 		}
-		if((params.Param1 & 0xf0) != 0xf0 && (params.Param4 == 1 || params.Param4==4 || params.Param4==21))	//卡格口
+		if((params.Param1 & 0xf0) != 0xf0 && (params.Param4 == 1 || params.Param4==4 || params.Param4==21 || params.Param4==31 || params.Param4==41))	//卡格口
 		{
 			target = params.Param1&0x00ff;
 			div10 = (target - 1) / 20;
@@ -366,6 +372,8 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			fast_move_flag = 1;
 			s32 sub2 = (target-1) * K_CARD + div10 * G_CARD + B_CARD;
 			SET_PROCESS(0,14);
+			if(params.Param4==41)	//参数4=41时，不做快速运动，直接进行慢速修正(卡)
+				goto SLOW_CARD;
 			u8 move_rst = BLL_Motor_AD_AbsoluteMove(-sub2,FAST_ACCE,FAST_DECE,FAST_SPEED);
 			SET_PROCESS(0,15);
 			WAIT_MOTOR_STOP(100,5000,die);	//100ms查一次，查300次不行就超时
@@ -380,6 +388,9 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 			
 			MyDelay(MOVE_DELAY);
 			
+			if(params.Param4==31)	//参数4=31时，只执行快速运动(卡)
+				goto die;
+SLOW_CARD:		
 //			goto die;
 			
 			//Step3：判断位移模式结果，决定如何修正
