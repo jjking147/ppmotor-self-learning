@@ -82,6 +82,8 @@ const int fastmove_speed[19]={10,30,40,60,80-5,80-5,80-5,80-5,80-5,80-5,80-5,80-
 	
 #define ROTATE_K		(843-25)
 #define ROTATE_B		(600) //625
+
+#define SKIP_SELF_FIX	(1)	//是否跳过自修正？
 	
 //static s32 final_offsets[19] = {0,-1,-1,1,1,1,1,2,5,5,8,2,-10,0,0,0,0,0,0}; //{0,10,12,15,20,20,20,25,25,20,15,15,18,18,10,10,10,10,0}
 static s32 final_offsets[19] = {0,0,0,0,0,0,0,0,0,0,0,0,-10,0,0,0,0,0,0};
@@ -141,6 +143,11 @@ CommonStateFlag_Type BLL_ToCase_Execute(ParamShadow_Type params, u8 *err)
 		}
 
 		speed_select = params.Param1 - last_target;
+#if SKIP_SELF_FIX
+		if(!has_zero_flag && speed_select == 0)
+			goto die;
+#endif		
+		
 		if(has_zero_flag == 0){
 			speed_select = params.Param1;
 		}else{
