@@ -1,28 +1,31 @@
 #ifndef __GPIO_H
-#define __GPIO_H	 
-#include "sys.h" 
+#define __GPIO_H
+#include "sys.h"
 
-#define XINRAW(p,n) P##p##in(n)
-#define XINRAW_EXPAND(p,n) XINRAW(p,n)
+#define XINRAW(p, n) P##p##in(n) // #define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //输入
+#define XINRAW_EXPAND(p, n) XINRAW(p, n)
 
-#define INIT_PORT_IN_FLOAT(p,n)  {\
-    GPIO_InitTypeDef GPIO_InitStructure;    \
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIO##p, ENABLE);\
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_##n;\
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;\
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;\
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;\
-    GPIO_Init(GPIO##p, &GPIO_InitStructure);\
-}
+#define INIT_PORT_IN_FLOAT(p, n)                                \
+    {                                                           \
+        GPIO_InitTypeDef GPIO_InitStructure;                    \
+        RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIO##p, ENABLE); \
+        GPIO_InitStructure.GPIO_Pin = GPIO_Pin_##n;             \
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;            \
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;      \
+        GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;        \
+        GPIO_Init(GPIO##p, &GPIO_InitStructure);                \
+    }
 
-#define INIT_PORT_IN_FLOAT_EXPAND(p,n) INIT_PORT_IN_FLOAT(p,n)
+#define INIT_PORT_IN_FLOAT_EXPAND(p, n) INIT_PORT_IN_FLOAT(p, n)
 
-#define GET_X_PORT(n)   X##n##_PORT
-#define GET_X_PIN(n)    X##n##_PIN
+#define GET_X_PORT(n) X##n##_PORT // X##1##_PORT
+#define GET_X_PIN(n) X##n##_PIN
 
-#define XIN(n)  XINRAW_EXPAND(GET_X_PORT(n),GET_X_PIN(n))
-#define INITX(n)    INIT_PORT_IN_FLOAT_EXPAND(GET_X_PORT(n),GET_X_PIN(n))
+#define XIN(n) XINRAW_EXPAND(GET_X_PORT(n), GET_X_PIN(n))
+#define INITX(n) INIT_PORT_IN_FLOAT_EXPAND(GET_X_PORT(n), GET_X_PIN(n))
 
+// XIN(2)->XINRAW(GET_X_PORT(2), GET_X_PIN(2))->XINRAW(X2_PORT,X2_PIN)->XINRAW(C,3)->PCin(3)
+// 读取PC3的输入
 #define X1_PORT C
 #define X1_PIN 2
 #define X2_PORT C
@@ -44,7 +47,7 @@
 #define X10_PORT D
 #define X10_PIN 1
 
-void GPIO_Config(void);	//IO��ʼ��
+void GPIO_Config(void); // IO��ʼ��
 u8 Read_Switch(u8);
 
 #endif

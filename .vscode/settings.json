@@ -1,0 +1,18 @@
+{
+  "editor.tokenColorCustomizations": {
+    "comments": "#82e182",
+    "textMateRules": [
+      {
+        "scope": [
+          "comment",
+          "comment.line",
+          "comment.block",
+          "punctuation.definition.comment"
+        ],
+        "settings": {
+          "foreground": "#71c364"    //哇的交往多久啊我
+        }
+      }
+    ]
+  }
+}

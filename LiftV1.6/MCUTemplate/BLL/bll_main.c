@@ -17,7 +17,7 @@ ParamShadow_Type ParamShadow;
 
 void BLL_Init_All(void)
 {
-	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
+	// NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	Slave_USART_Init(MODBUS_BAUDRATE);
 	Modbus_Slave_Timer_Init(MOBUS_SLAVE_TIMEOUT);
 	Master_USART_Init(MOTOR_BAUDRATE);
@@ -25,40 +25,40 @@ void BLL_Init_All(void)
 	Delay_Timer_Init();
 	Dispatcher_Tim_Init(DISPATCHER_TIME_SPAN);
 	GPIO_Config();
-//	IWDG_Init(4,5000);
-	NVIC_Config(1,0);
-	NVIC_Config(2,0);
-//	NVIC_Config(3,0);
-	NVIC_Config(4,0);
-	NVIC_Config(5,0);
+	//	IWDG_Init(4,5000);
+	NVIC_Config(1, 0);
+	NVIC_Config(2, 0);
+	//	NVIC_Config(3,0);
+	NVIC_Config(4, 0);
+	NVIC_Config(5, 0);
 #if USE_LIMIT_SENSOR
-	//NVIC_Config(6,0);
-	//NVIC_Config(7,0);
+	// NVIC_Config(6,0);
+	// NVIC_Config(7,0);
 #endif
 	System_State = SYS_Idel;
 	System_Inited = 1;
 }
 
-u8 ExecuteCommand_Handler(u16* cmd)
+u8 ExecuteCommand_Handler(u16 *cmd)
 {
 	for (u8 i = 0; i < 8; i++)
 	{
 		if (cmd[i] == 0xA5A5)
 		{
-			Current_Trigger = (Trigger_Type)i;
+			Current_Trigger = (Trigger_Type)i; // 获取cmd中0xA5A5的索引，并且转换为Trigger信号
 			break;
 		}
 	}
-	memset(cmd, 0, 16);
-	memcpy(&ParamShadow, &PARAM_REG, sizeof(ParamShadow_Type));
-	
-	if (Current_Trigger == TRIG_MissionStart)
+	memset(cmd, 0, 16);											// 找到之后直接清零
+	memcpy(&ParamShadow, &PARAM_REG, sizeof(ParamShadow_Type)); // 配置这个任务的参数
+
+	if (Current_Trigger == TRIG_MissionStart) // 一些需要判断并且回滚的情况
 	{
-		if (System_State == SYS_Faliure)
+		if (System_State == SYS_Faliure) // 任务开始但是系统失败直接返回
 		{
 			return MODBUS_ERR_Failure;
 		}
-		if (System_State == SYS_Working || System_State == SYS_Finished)
+		if (System_State == SYS_Working || System_State == SYS_Finished) // 任务开始但是系统状态不是空闲，直接返回
 		{
 			return MODBUS_ERR_Busy;
 		}
@@ -72,7 +72,7 @@ u8 ExecuteCommand_Handler(u16* cmd)
 		return MODBUS_ERR_Busy;
 	}
 
-	System_State = SYS_Working;
+	System_State = SYS_Working; // 系统状态设置为正在工作
 	return MODBUS_OK;
 }
 
@@ -95,18 +95,18 @@ void BLL_ClearFinishFlag(void)
 	Current_Trigger = TRIG_None;
 }
 
-void BLL_Stop_Mission(void)
+void BLL_Stop_Mission(void) // 可能是升降这里不需要
 {
-	u8 flag = FUN_MOTOR_STOP();
-	if (flag == ADAPTER_PLACEHOLD_VAL)
+	u8 flag = FUN_MOTOR_STOP();		   // 这个函数直接返回-1
+	if (flag == ADAPTER_PLACEHOLD_VAL) // 何意味
 	{
 		FUN_MOTOR_CLEAR_RX_FLAG();
 		System_State = SYS_Finished;
 		Current_Trigger = TRIG_None;
-	}	
+	}
 }
 
-void BLL_Abort_Mission(void)
+void BLL_Abort_Mission(void) // 何意味，可能是升降这里不需要？
 {
 	u8 flag = FUN_MOTOR_ABORT();
 	if (flag == ADAPTER_PLACEHOLD_VAL)
@@ -133,10 +133,10 @@ void BLL_Update(void)
 {
 	/* disable nvic irq and clear pending */
 	__disable_irq();
-	
-	jump_to_app = (iapfun)*(uint32_t*)(app_addr + 4);        /* code second word is reset address */
-	__set_MSP(*(uint32_t*)app_addr);                        /* init app stack pointer(code first word is stack address) */
-	jump_to_app();                                          
+
+	jump_to_app = (iapfun) * (uint32_t *)(app_addr + 4); /* code second word is reset address */
+	__set_MSP(*(uint32_t *)app_addr);					 /* init app stack pointer(code first word is stack address) */
+	jump_to_app();
 }
 
 static void NOP(void)
@@ -163,10 +163,10 @@ void BLL_Motor_Mission(void)
 		clear_flag_fun = BLL_ToCase_ClearFlag;
 		break;
 	case Mission_Claw:
-		//夹爪/伸缩任务
+		// 夹爪/伸缩任务
 		break;
 	case Mission_ForwardData:
-		//转发数据任务
+		// 转发数据任务
 		break;
 	default:
 		flag = CSF_Finished;
