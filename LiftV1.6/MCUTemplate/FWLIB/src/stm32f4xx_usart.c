@@ -562,14 +562,14 @@ void USART_SendData(USART_TypeDef *USARTx, uint16_t Data)
 
   /* Transmit Data */
   USARTx->DR = (Data & (uint16_t)0x01FF); // 发送低9位
-
+}
   /**
    * @brief  Returns the most recent received data by the USARTx peripheral.
    * @param  USARTx: where x can be 1, 2, 3, 4, 5, 6, 7 or 8 to select the USART or
    *         UART peripheral.
    * @retval The received data.
    */
-  uint16_t USART_ReceiveData(USART_TypeDef * USARTx)
+ uint16_t USART_ReceiveData(USART_TypeDef * USARTx)
   {
     /* Check the parameters */
     assert_param(IS_USART_ALL_PERIPH(USARTx));
